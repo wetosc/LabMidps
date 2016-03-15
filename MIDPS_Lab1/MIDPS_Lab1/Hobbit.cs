@@ -1,11 +1,12 @@
 ﻿using System;
-
+using System.Collections;
 public class Hobbit: IComparable
 {
     public string Name { get; set; }
     public uint id { get; set; }
     public string Family { get; set; }
     public string Region { get; set; }
+    public ArrayList Friends;
 
     public Hobbit()
 	{
