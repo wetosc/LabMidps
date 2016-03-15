@@ -1,0 +1,12 @@
+C:\Users\Eugenius\Documents\Visual Studio 2015\Projects\MIDPS\MIDPS_Lab1\MIDPS_Lab1\bin\Debug\MIDPS_Lab1.exe.config
+C:\Users\Eugenius\Documents\Visual Studio 2015\Projects\MIDPS\MIDPS_Lab1\MIDPS_Lab1\bin\Debug\MIDPS_Lab1.exe
+C:\Users\Eugenius\Documents\Visual Studio 2015\Projects\MIDPS\MIDPS_Lab1\MIDPS_Lab1\bin\Debug\MIDPS_Lab1.pdb
+C:\Users\Eugenius\Documents\Visual Studio 2015\Projects\MIDPS\MIDPS_Lab1\MIDPS_Lab1\obj\Debug\MIDPS_Lab1.exe
+C:\Users\Eugenius\Documents\Visual Studio 2015\Projects\MIDPS\MIDPS_Lab1\MIDPS_Lab1\obj\Debug\MIDPS_Lab1.pdb
+C:\Users\Eugenius\Documents\Visual Studio 2015\Projects\MIDPS\MIDPS_Lab1\MIDPS_Lab1\obj\Debug\MIDPS_Lab1.csprojResolveAssemblyReference.cache
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab1\MIDPS_Lab1\bin\Debug\MIDPS_Lab1.exe.config
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab1\MIDPS_Lab1\obj\Debug\MIDPS_Lab1.exe
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab1\MIDPS_Lab1\obj\Debug\MIDPS_Lab1.pdb
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab1\MIDPS_Lab1\obj\Debug\MIDPS_Lab1.csprojResolveAssemblyReference.cache
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab1\MIDPS_Lab1\bin\Debug\MIDPS_Lab1.exe
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab1\MIDPS_Lab1\bin\Debug\MIDPS_Lab1.pdb
