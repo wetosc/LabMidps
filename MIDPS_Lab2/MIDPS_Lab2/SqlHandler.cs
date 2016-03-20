@@ -11,8 +11,10 @@ namespace SQL
 
         public void Connect()
         {
-            string connectionString = "user id=username;password=password;server=localhost;Trusted_Connection=yes;" +
-                                           "database=MiddleEarth; connection timeout=30";
+            string connectionString = "Data Source=localhost;" +
+                                      "Initial Catalog=MiddleEarth;" +
+                                      "User id=wasea;" +
+                                      "Password=123456;";
 
             SqlConnection myConnection = new SqlConnection(connectionString);
 
