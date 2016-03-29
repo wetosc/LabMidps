@@ -5,17 +5,12 @@ namespace SQL
 {
     public class SqlHandler
     {
+        string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
         public SqlHandler()
-        {
-        }
+        { }
 
         public void Connect()
         {
-            string connectionString = "Data Source=localhost;" +
-                                      "Initial Catalog=MiddleEarth;" +
-                                      "User id=wasea;" +
-                                      "Password=123456;";
-
             SqlConnection myConnection = new SqlConnection(connectionString);
 
             try
@@ -24,11 +19,21 @@ namespace SQL
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                Console.WriteLine("asda");
+                Console.WriteLine("Connection Error >>>" + e.ToString());
+            }
+            finally
+            {
+                Console.WriteLine("Connection state: " + myConnection.State.ToString() + "\nPress enter.");
+                Console.ReadLine();
             }
         }
+
+        public void Insert(Object temp)
+        {
+            switch (typeof(temp))
+        }
     }
+}
 
 
 
