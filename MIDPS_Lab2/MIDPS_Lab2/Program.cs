@@ -34,7 +34,8 @@ namespace MIDPS_Lab2
             {
                 case 0:
                     {
-                        textManager.addThing();
+                        object data = textManager.addThing();
+                        sqlHandler.Insert(data);
                         break;
                     }
                 case 1:
@@ -116,8 +117,8 @@ namespace MIDPS_Lab2
                         Ring temp = new Ring();
                         Console.WriteLine("Ring material?");
                         temp.Material = Console.ReadLine();
-                        Console.WriteLine("Ring number?");
-                        temp.id = UInt32.Parse(Console.ReadLine());
+                        Console.WriteLine("Ring name?");
+                        temp.Name = Console.ReadLine();
                         return temp;
                     }
                 case '1':
