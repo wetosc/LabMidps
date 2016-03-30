@@ -6,7 +6,8 @@ namespace SQL
     public class SqlHandler
     {
         public SqlConnection myConnection;
-        string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
+        //string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
+        string connectionString = "Data Source=TI50115;Initial Catalog=MiddleEarth;Integrated Security=True";
         public SqlHandler() { }
 
         public void Connect()
@@ -29,18 +30,18 @@ namespace SQL
 
         public int Insert(Object temp)
         {
-            string sql_insert_command = "INSERT INTO @table (@params) VALUES (@values);";
-            string tableName="", param="", values="";
-            if (temp is Ring) { tableName = "Ring"; param = "Material","Name"; values = String.Format("{0}','{1}", ((Ring)temp).Material, ((Ring)temp).Name); }
+            SqlCommand cmd = new SqlCommand();
 
+            if (temp is Ring)
+            {
+                cmd.CommandText = "INSERT INTO Ring (Material,Name) VALUES (@value1,@value2);";
+                cmd.Parameters.AddWithValue("@value1",((Ring)temp).Material);
+                cmd.Parameters.AddWithValue("@value2", ((Ring)temp).Name);
+            }
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(sql_insert_command, conn);
-                cmd.Parameters.AddWithValue("@table", tableName);
-                cmd.Parameters.AddWithValue("@params", param);
-                cmd.Parameters.AddWithValue("@values", values);
-                cmd.Parameters.AddRange();
+                cmd.Connection = conn;
                 return cmd.ExecuteNonQuery();
             }
         }

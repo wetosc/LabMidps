@@ -12,9 +12,11 @@ namespace MIDPS_Lab2
         static void Main(string[] args)
         {
             Program instance = new Program();
-            instance.onChoice(instance.textManager.showMenu());
-
-            Console.ReadLine();
+            while (true)
+            {
+                instance.onChoice(instance.textManager.showMenu());
+                Console.ReadLine();
+            }
         }
 
         TextManager textManager;
@@ -35,7 +37,7 @@ namespace MIDPS_Lab2
                 case 0:
                     {
                         object data = textManager.addThing();
-                        sqlHandler.Insert(data);
+                        Console.WriteLine(sqlHandler.Insert(data)>0?"Succes":"Error");
                         break;
                     }
                 case 1:
