@@ -34,20 +34,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DLLSpecial">
+      <HintPath>..\Additional projects\DLLSpecial\DLLSpecial\bin\Release\DLLSpecial.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TolkienWorld">
-      <HintPath>..\TolkienWorld.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

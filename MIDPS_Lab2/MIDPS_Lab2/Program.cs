@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SQL;
 
 namespace MIDPS_Lab2
 {
     class Program
     {
-        
+
         static void Main(string[] args)
         {
             Program instance = new Program();
@@ -36,55 +33,53 @@ namespace MIDPS_Lab2
             {
                 case 0:
                     {
-                        object data = textManager.addThing();
-                        Console.WriteLine(sqlHandler.Insert(data)>0?"Succes":"Error");
+                        SQLObject data = textManager.addThing();
+                        Console.WriteLine(sqlHandler.Insert(data) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 1:
                     {
-
+                        Console.WriteLine(sqlHandler.deleteOne(textManager.deleteItem()) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 2:
                     {
-
+                        Type t = textManager.deleteItem();
+                        Console.WriteLine("How many records do you want to delete?");
+                        Console.WriteLine(sqlHandler.deleteMultiple(t, Int32.Parse(Console.ReadLine())) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 3:
                     {
-
+                        Type t = textManager.updateData();
+                        Console.WriteLine("Write the old name of the object:");
+                        string a = Console.ReadLine();
+                        Console.WriteLine("Write the new name of the object");
+                        string b = Console.ReadLine();
+                        Console.WriteLine(sqlHandler.update(t, a, b) > 0 ? "Succes" : "Error"); 
                         break;
                     }
                 case 4:
                     {
-
+                        textManager.sortItems(sqlHandler);
                         break;
                     }
                 case 5:
                     {
-
+                        textManager.showItems(sqlHandler);
                         break;
                     }
                 case 6:
+                default:
                     {
                         Environment.Exit(0);
                         break;
                     }
-
             }
-
-
-
         }
-
-
-
-
-
-
-
-
     }
+
+
 
     class TextManager
     {
@@ -93,16 +88,16 @@ namespace MIDPS_Lab2
         {
             Console.WriteLine("        Menu:");
             Console.WriteLine("    0) Add element");
-            Console.WriteLine("    1) Add elements at index");
-            Console.WriteLine("    2) Remove element");
-            Console.WriteLine("    3) Remove multiple elements");
+            Console.WriteLine("    1) Remove element");
+            Console.WriteLine("    2) Remove multiple elements");
+            Console.WriteLine("    3) Rename character");
             Console.WriteLine("    4) Sort elements");
             Console.WriteLine("    5) Display elements");
             Console.WriteLine("    6) Exit program");
             return Int32.Parse(Console.ReadKey(false).KeyChar.ToString());
         }
 
-        public object addThing()
+        public SQLObject addThing()
         {
             Console.WriteLine(" What object do you want to create ?");
             Console.WriteLine("    0) Add a ring");
@@ -193,7 +188,7 @@ namespace MIDPS_Lab2
             }
         }
 
-        public void sortItems()
+        public void sortItems(SqlHandler sql)
         {
             Console.WriteLine(" What do you want to sort today?");
             Console.WriteLine("    0) Rings");
@@ -205,14 +200,14 @@ namespace MIDPS_Lab2
             Console.WriteLine();
             switch (x)
             {
-                case '0': break;
-                case '1': break;
-                case '2': break;
-                case '3': break;
-                case '4': break;
+                case '0': sql.sort<Ring>(); break;
+                case '1': sql.sort<Wizard>(); break;
+                case '2': sql.sort<Elf>(); break;
+                case '3': sql.sort<Orc>(); break;
+                case '4': sql.sort<Hobbit>(); break;
             }
         }
-        void showItems()
+        public void showItems(SqlHandler sql)
         {
             Console.WriteLine(" What do you want to see today?");
             Console.WriteLine("    0) Rings");
@@ -224,11 +219,30 @@ namespace MIDPS_Lab2
             Console.WriteLine();
             switch (x)
             {
-                case '0': break;
-                case '1': break;
-                case '2': break;
-                case '3': break;
-                case '4': break;
+                case '0': sql.read<Ring>(); break;
+                case '1': sql.read<Wizard>(); break;
+                case '2': sql.read<Elf>(); break;
+                case '3': sql.read<Orc>(); break;
+                case '4': sql.read<Hobbit>(); break;
+            }
+        }
+        public Type updateData()
+        {
+            Console.WriteLine(" What do you want to rename today?");
+            Console.WriteLine("    0) Rings");
+            Console.WriteLine("    1) Wizards");
+            Console.WriteLine("    2) Elfs");
+            Console.WriteLine("    3) Hobbits");
+            char x = Console.ReadKey().KeyChar;
+            Console.WriteLine();
+            switch (x)
+            {
+                case '0': return typeof(Ring);
+                case '1': return typeof(Wizard);
+                case '2': return typeof(Elf);
+                case '3': return typeof(Orc);
+                case '4': return typeof(Hobbit);
+                default: return null;
             }
         }
     }

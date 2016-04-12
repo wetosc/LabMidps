@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TolkienWorld")]
+[assembly: AssemblyTitle("DLLSpecial")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TolkienWorld")]
+[assembly: AssemblyProduct("DLLSpecial")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b7b5b773-4bf6-4128-819f-540703891b58")]
+[assembly: Guid("16ef4b07-ce33-4edd-a259-c3ae791e98b3")]
 
 // Version information for an assembly consists of the following four values:
 //

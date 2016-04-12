@@ -83,6 +83,8 @@ SELECT * FROM Master2Ring;
 SELECT * FROM Elf;
 SELECT * FROM Orc;
 
+
+
 -------------------------
 -- Delete table values --
 -------------------------
