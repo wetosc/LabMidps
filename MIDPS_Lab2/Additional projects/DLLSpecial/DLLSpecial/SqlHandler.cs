@@ -15,8 +15,8 @@ namespace SQL
     public class SqlHandler
     {
         public SqlConnection myConnection;
-        string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
-        //string connectionString = "Data Source=TI50115;Initial Catalog=MiddleEarth;Integrated Security=True";
+        //string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
+        string connectionString = "Data Source=TI50115;Initial Catalog=MiddleEarth;Integrated Security=True";
         public SqlHandler() { }
 
         public void Connect()
@@ -154,7 +154,47 @@ namespace SQL
             }
         }
 
+        public void readSpecial(int cas, int id)
+        {
+            string query = "";
+            switch (cas)
+            {
+                case 0:
+                    query = String.Format("SELECT * FROM Ring WHERE id = (SELECT Ring_ID FROM Master2Ring WHERE Master_ID = '{0}')",id);
+                    break;
+                case 1:
+                    query = String.Format("SELECT * FROM Wizard WHERE id IN (SELECT Master_ID FROM Master2Ring WHERE Ring_ID = '{0}')", id);
+                    break;
+                case 2:
+                    query = String.Format("SELECT * FROM Ring WHERE id IN (SELECT Ring_ID FROM Master2Ring WHERE Ring_ID = '{0}')", id);
+                    break;
+            }
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
 
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        Console.Write(String.Format("  {0,-10} ", reader.GetName(i)));
+                    }
+                    Console.WriteLine(); Console.WriteLine();
+
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            Console.Write(String.Format("  {0,-10} ", reader.GetValue(i).ToString()));
+                        }
+                        Console.WriteLine();
+                    }
+                    reader.Close();
+                }
+                connection.Close();
+            }
+        }
 
     }
 }

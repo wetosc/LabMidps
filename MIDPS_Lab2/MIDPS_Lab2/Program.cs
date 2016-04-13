@@ -46,7 +46,9 @@ namespace MIDPS_Lab2
                     {
                         Type t = textManager.deleteItem();
                         Console.WriteLine("How many records do you want to delete?");
-                        Console.WriteLine(sqlHandler.deleteMultiple(t, Int32.Parse(Console.ReadLine())) > 0 ? "Succes" : "Error");
+                        UInt32 f = 0;
+                        UInt32.TryParse(Console.ReadLine(), out f);
+                        Console.WriteLine(sqlHandler.deleteMultiple(t, (int)f) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 3:
@@ -56,7 +58,7 @@ namespace MIDPS_Lab2
                         string a = Console.ReadLine();
                         Console.WriteLine("Write the new name of the object");
                         string b = Console.ReadLine();
-                        Console.WriteLine(sqlHandler.update(t, a, b) > 0 ? "Succes" : "Error"); 
+                        Console.WriteLine(sqlHandler.update(t, a, b) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 4:
@@ -94,7 +96,8 @@ namespace MIDPS_Lab2
             Console.WriteLine("    4) Sort elements");
             Console.WriteLine("    5) Display elements");
             Console.WriteLine("    6) Exit program");
-            return Int32.Parse(Console.ReadKey(false).KeyChar.ToString());
+            int f = 10; Int32.TryParse(Console.ReadKey(false).KeyChar.ToString(), out f);
+            return f;
         }
 
         public SQLObject addThing()
@@ -107,6 +110,7 @@ namespace MIDPS_Lab2
             Console.WriteLine("    4) Visit a hobbit");
             char x = Console.ReadKey().KeyChar;
             Console.WriteLine();
+            UInt32 f;
             switch (x)
             {
                 case '0':
@@ -126,7 +130,9 @@ namespace MIDPS_Lab2
                         Console.WriteLine("Wizard color?");
                         temp.Color = Console.ReadLine();
                         Console.WriteLine("Wizard id?");
-                        temp.id = UInt32.Parse(Console.ReadLine());
+                        f = 0;
+                        UInt32.TryParse(Console.ReadLine(), out f);
+                        temp.id = (UInt32)f;
                         return temp;
                     }
                 case '2':
@@ -137,7 +143,9 @@ namespace MIDPS_Lab2
                         Console.WriteLine("Elf category?");
                         temp.Category = Console.ReadLine();
                         Console.WriteLine("Elf id?");
-                        temp.id = UInt32.Parse(Console.ReadLine());
+                        f = 0;
+                        UInt32.TryParse(Console.ReadLine(), out f);
+                        temp.id = (UInt32)f;
                         return temp;
                     }
                 case '3':
@@ -146,9 +154,12 @@ namespace MIDPS_Lab2
                         Console.WriteLine("Orc master?");
                         temp.Master = Console.ReadLine();
                         Console.WriteLine("Orc id?");
-                        temp.id = UInt32.Parse(Console.ReadLine());
+                        f = 0;
+                        UInt32.TryParse(Console.ReadLine(), out f);
+                        temp.id = f;
                         Console.WriteLine("Orc power?");
-                        temp.Power = float.Parse(Console.ReadLine());
+                        float f1 = 0; float.TryParse(Console.ReadLine(), out f1);
+                        temp.Power = f1;
                         return temp;
                     }
                 case '4':
@@ -159,7 +170,9 @@ namespace MIDPS_Lab2
                         Console.WriteLine("Hobbit family?");
                         temp.Family = Console.ReadLine();
                         Console.WriteLine("Hobbit id?");
-                        temp.id = UInt32.Parse(Console.ReadLine());
+                        f = 0;
+                        UInt32.TryParse(Console.ReadLine(), out f);
+                        temp.id = f;
                         return temp;
                     }
                 default:
@@ -209,12 +222,16 @@ namespace MIDPS_Lab2
         }
         public void showItems(SqlHandler sql)
         {
+            UInt32 f;
             Console.WriteLine(" What do you want to see today?");
             Console.WriteLine("    0) Rings");
             Console.WriteLine("    1) Wizards");
             Console.WriteLine("    2) Elfs");
             Console.WriteLine("    3) Orcs");
             Console.WriteLine("    4) Hobbits");
+            Console.WriteLine("    5) Rings for master");
+            Console.WriteLine("    6) Masters for ring");
+            Console.WriteLine("    7) Friends for Hobbit");
             char x = Console.ReadKey().KeyChar;
             Console.WriteLine();
             switch (x)
@@ -224,6 +241,28 @@ namespace MIDPS_Lab2
                 case '2': sql.read<Elf>(); break;
                 case '3': sql.read<Orc>(); break;
                 case '4': sql.read<Hobbit>(); break;
+                case '5':
+                    {
+                        Console.WriteLine("Write the id of the master:");
+                        f = 0;
+                        if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(0, (int)f); }
+                        break;
+                    }
+                case '6':
+                    {
+                        Console.WriteLine("Write the id of the ring:");
+                        f = 0;
+                        if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(1, (int)f); }
+                        break;
+                    }
+                case '7':
+                    {
+                        Console.WriteLine("Write the id of the hobbit:");
+                        f = 0;
+                        if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(2, (int)f); }
+                        break;
+
+                    }
             }
         }
         public Type updateData()
@@ -245,5 +284,6 @@ namespace MIDPS_Lab2
                 default: return null;
             }
         }
+
     }
 }
