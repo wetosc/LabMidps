@@ -70,6 +70,7 @@ ALTER TABLE Orc ADD CONSTRAINT  Master_ID_FK2 FOREIGN KEY (Master_ID) REFERENCES
 /*4*/INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES (1,2);
 /*4*/INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES (2,2);
 /*5*/INSERT INTO Elf (Name,Category,Hobbit_Friend) VALUES ('Santiras','Forest',2);
+/*5*/INSERT INTO Elf (Name,Category,Hobbit_Friend) VALUES ('Oripon','Sea',2);
 /*6*/INSERT INTO Orc (Power,Master_ID) VALUES (5,2);
 
 -------------------------

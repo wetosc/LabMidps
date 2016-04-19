@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SQL;
 
 namespace MIDPS_Lab2
@@ -21,6 +22,7 @@ namespace MIDPS_Lab2
 
         public Program()
         {
+
             sqlHandler = new SqlHandler();
             textManager = new TextManager();
             sqlHandler.Connect();
@@ -34,12 +36,13 @@ namespace MIDPS_Lab2
                 case 0:
                     {
                         SQLObject data = textManager.addThing();
-                        Console.WriteLine(sqlHandler.Insert(data) > 0 ? "Succes" : "Error");
+                        if (data != null) Console.WriteLine(sqlHandler.Insert(data) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 1:
                     {
-                        Console.WriteLine(sqlHandler.deleteOne(textManager.deleteItem()) > 0 ? "Succes" : "Error");
+                        Type t = textManager.deleteItem();
+                        if (t != null) Console.WriteLine(sqlHandler.deleteOne(textManager.deleteItem()) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 2:
@@ -47,8 +50,7 @@ namespace MIDPS_Lab2
                         Type t = textManager.deleteItem();
                         Console.WriteLine("How many records do you want to delete?");
                         UInt32 f = 0;
-                        UInt32.TryParse(Console.ReadLine(), out f);
-                        Console.WriteLine(sqlHandler.deleteMultiple(t, (int)f) > 0 ? "Succes" : "Error");
+                        if (UInt32.TryParse(Console.ReadLine(), out f)) Console.WriteLine(sqlHandler.deleteMultiple(t, (int)f) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 3:
@@ -58,7 +60,7 @@ namespace MIDPS_Lab2
                         string a = Console.ReadLine();
                         Console.WriteLine("Write the new name of the object");
                         string b = Console.ReadLine();
-                        Console.WriteLine(sqlHandler.update(t, a, b) > 0 ? "Succes" : "Error");
+                        if (t != null) Console.WriteLine(sqlHandler.update(t, a, b) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 4:
@@ -120,6 +122,12 @@ namespace MIDPS_Lab2
                         temp.Material = Console.ReadLine();
                         Console.WriteLine("Ring name?");
                         temp.Name = Console.ReadLine();
+                        Console.WriteLine("Write the id of the ring masters (0 for no master) :");
+                        temp.OwnerID = new List<uint>();
+                        while (UInt32.TryParse(Console.ReadLine(), out f) && f > 0)
+                        {
+                            temp.OwnerID.Add((UInt32)f);
+                        }
                         return temp;
                     }
                 case '1':
@@ -129,10 +137,12 @@ namespace MIDPS_Lab2
                         temp.Name = Console.ReadLine();
                         Console.WriteLine("Wizard color?");
                         temp.Color = Console.ReadLine();
-                        Console.WriteLine("Wizard id?");
-                        f = 0;
-                        UInt32.TryParse(Console.ReadLine(), out f);
-                        temp.id = (UInt32)f;
+                        Console.WriteLine("Write the id of the rings owned by this wizard (0 for no ring) :");
+                        temp.RingID = new List<uint>();
+                        while (UInt32.TryParse(Console.ReadLine(), out f) && f > 0)
+                        {
+                            temp.RingID.Add((UInt32)f);
+                        }
                         return temp;
                     }
                 case '2':
@@ -142,10 +152,11 @@ namespace MIDPS_Lab2
                         temp.Name = Console.ReadLine();
                         Console.WriteLine("Elf category?");
                         temp.Category = Console.ReadLine();
-                        Console.WriteLine("Elf id?");
-                        f = 0;
-                        UInt32.TryParse(Console.ReadLine(), out f);
-                        temp.id = (UInt32)f;
+                        Console.WriteLine("Elf friend ID?");
+                        if (UInt32.TryParse(Console.ReadLine(), out f))
+                        {
+                            temp.HobbitFriend = (UInt32)f;
+                        }
                         return temp;
                     }
                 case '3':
@@ -244,24 +255,20 @@ namespace MIDPS_Lab2
                 case '5':
                     {
                         Console.WriteLine("Write the id of the master:");
-                        f = 0;
                         if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(0, (int)f); }
                         break;
                     }
                 case '6':
                     {
                         Console.WriteLine("Write the id of the ring:");
-                        f = 0;
                         if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(1, (int)f); }
                         break;
                     }
                 case '7':
                     {
                         Console.WriteLine("Write the id of the hobbit:");
-                        f = 0;
                         if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(2, (int)f); }
                         break;
-
                     }
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SQL;
 public class Ring : IComparable, SQLObject
 {
@@ -7,6 +8,7 @@ public class Ring : IComparable, SQLObject
     public object Owner { get; set; }
     public string Material { get; set; }
     public string Rune { get; set; }
+    public List<uint> OwnerID { get; set; }
 
     public Ring()
     {
@@ -30,7 +32,7 @@ public class Ring : IComparable, SQLObject
     public string insertString()
     {
         string p1 = "Material, Name", p2 = String.Format("'{0}','{1}'", this.Material, this.Name);
-        return String.Format("INSERT INTO Ring ({0}) VALUES ({1});", p1, p2);
+        return String.Format("INSERT INTO Ring ({0}) VALUES ({1})", p1, p2);
     }
 
     public string deleteString(int n)
@@ -45,5 +47,8 @@ public class Ring : IComparable, SQLObject
     {
         return "SELECT * FROM Ring ORDER BY Name;";
     }
-
+    public string verifyMaster()
+    {
+        return "SELECT COUNT(*) FROM Wizard WHERE id = '{0}';";
+    }
 }

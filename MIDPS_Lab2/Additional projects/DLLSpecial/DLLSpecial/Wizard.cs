@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using SQL;
 public class Wizard : IComparable, SQLObject
 {
     public string Name { get; set; }
     public uint id { get; set; }
     public string Color { get; set; }
+    public List<uint> RingID { get; set; }
 
     public Wizard()
 	{
@@ -33,5 +35,9 @@ public class Wizard : IComparable, SQLObject
     public string sortString()
     {
         return "SELECT * FROM Wizard ORDER BY Name;";
+    }
+    public string verifyRing()
+    {
+        return "SELECT COUNT(*) FROM Ring WHERE id = '{0}';";
     }
 }
