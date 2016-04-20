@@ -15,8 +15,8 @@ namespace SQL
     public class SqlHandler
     {
         public SqlConnection myConnection;
-        string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
-        //string connectionString = "Data Source=TI50115;Initial Catalog=MiddleEarth;Integrated Security=True";
+        //string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
+        string connectionString = "Data Source=TI50115;Initial Catalog=MiddleEarth;Integrated Security=True";
         public SqlHandler() { }
 
         public void Connect()

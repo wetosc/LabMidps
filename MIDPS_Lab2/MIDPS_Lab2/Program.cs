@@ -9,6 +9,10 @@ namespace MIDPS_Lab2
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Disclaimer: ");
+            Console.WriteLine("This program was created in educational purposes only. It doesn't work like an enterprise solution.");
+            Console.WriteLine("That's why if you enter a wrong value you won't see some fancy error message;");
+            Console.WriteLine("The program will continue to work, even if you try to break him.");
             Program instance = new Program();
             while (true)
             {
@@ -294,3 +298,4 @@ namespace MIDPS_Lab2
 
     }
 }
+
