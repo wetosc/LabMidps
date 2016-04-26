@@ -27,7 +27,7 @@ public class Elf : IComparable, SQLObject
     public string insertWithFriendString()
     {
         string p1 = "Name, Category, Hobbit_Friend", p2 = String.Format("'{0}','{1}','{2}'", this.Name, this.Category, this.HobbitFriend);
-        return String.Format("INSERT INTO Elf ({0}) VALUES ({1});", p1, p2);
+        return String.Format("INSERT INTO Elf ({0}) output INSERTED.ID VALUES ({1});", p1, p2);
     }
     public string deleteString(int n)
     {

@@ -15,8 +15,8 @@ namespace SQL
     public class SqlHandler
     {
         public SqlConnection myConnection;
-        //string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
-        string connectionString = "Data Source=TI50115;Initial Catalog=MiddleEarth;Integrated Security=True";
+        string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
+        //string connectionString = "Data Source=TI50115;Initial Catalog=MiddleEarth;Integrated Security=True";
         public SqlHandler() { }
 
         public void Connect()
@@ -50,46 +50,38 @@ namespace SQL
                     case "Ring":
                         {
                             cmd.CommandText = temp.insertString();
-                            if (cmd.ExecuteNonQuery() > 0)
+                            int mID = (int)cmd.ExecuteScalar();
+                            if (mID > 0)
                             {
-                                cmd.CommandText = "SELECT COUNT(*) FROM Ring;";
-                                int mID = (int)cmd.ExecuteScalar();
-                                if (mID > 0)
+                                foreach (uint id in ((Ring)temp).OwnerID)
                                 {
-                                    foreach (uint id in ((Ring)temp).OwnerID)
+                                    cmd.CommandText = String.Format(((Ring)temp).verifyMaster(), id);
+                                    if ((int)cmd.ExecuteScalar() > 0)
                                     {
-                                        cmd.CommandText = String.Format(((Ring)temp).verifyMaster(), id);
-                                        if ((int)cmd.ExecuteScalar() > 0)
-                                        {
-                                            cmd.CommandText = String.Format("INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES ('{0}','{1}');", mID, id);
-                                            cmd.ExecuteNonQuery();
-                                        }
+                                        cmd.CommandText = String.Format("INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES ('{0}','{1}');", mID, id);
+                                        cmd.ExecuteNonQuery();
                                     }
-                                    return 1;
                                 }
+                                return 1;
                             }
                             break;
                         }
                     case "Wizard":
                         {
                             cmd.CommandText = temp.insertString();
-                            if (cmd.ExecuteNonQuery() > 0)
+                            int mID = (int)cmd.ExecuteScalar();
+                            if (mID > 0)
                             {
-                                cmd.CommandText = "SELECT COUNT(*) FROM Wizard;";
-                                int mID = (int)cmd.ExecuteScalar();
-                                if (mID > 0)
+                                foreach (uint id in ((Wizard)temp).RingID)
                                 {
-                                    foreach (uint id in ((Wizard)temp).RingID)
+                                    cmd.CommandText = String.Format(((Wizard)temp).verifyRing(), id);
+                                    if ((int)cmd.ExecuteScalar() > 0)
                                     {
-                                        cmd.CommandText = String.Format(((Wizard)temp).verifyRing(), id);
-                                        if ((int)cmd.ExecuteScalar() > 0)
-                                        {
-                                            cmd.CommandText = String.Format("INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES ('{0}','{1}');", id, mID);
-                                            cmd.ExecuteNonQuery();
-                                        }
+                                        cmd.CommandText = String.Format("INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES ('{0}','{1}');", id, mID);
+                                        cmd.ExecuteNonQuery();
                                     }
-                                    return 1;
                                 }
+                                return 1;
                             }
                             break;
                         }

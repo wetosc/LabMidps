@@ -26,7 +26,7 @@ public class Hobbit: IComparable, SQLObject
     }
     public string deleteString(int n)
     {
-        return String.Format("UPDATE Elf SET Hobbit_Friend = NULL WHERE Hobbit_Friend = (SELECT TOP {0} id FROM Hobbit); UPDATE Wizard SET Hobbit_Friend = NULL WHERE Hobbit_Friend = (SELECT TOP {0} id FROM Hobbit); DELETE TOP({0}) FROM Hobbit;",n);
+        return String.Format("UPDATE Elf SET Hobbit_Friend = NULL WHERE Hobbit_Friend IN (SELECT TOP {0} id FROM Hobbit); UPDATE Wizard SET Hobbit_Friend = NULL WHERE Hobbit_Friend IN (SELECT TOP {0} id FROM Hobbit); DELETE TOP({0}) FROM Hobbit;",n);
     }
     public string updateFormat()
     {

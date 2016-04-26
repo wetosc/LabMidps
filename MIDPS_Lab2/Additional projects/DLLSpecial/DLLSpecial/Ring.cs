@@ -32,12 +32,12 @@ public class Ring : IComparable, SQLObject
     public string insertString()
     {
         string p1 = "Material, Name", p2 = String.Format("'{0}','{1}'", this.Material, this.Name);
-        return String.Format("INSERT INTO Ring ({0}) VALUES ({1})", p1, p2);
+        return String.Format("INSERT INTO Ring ({0}) output INSERTED.ID VALUES ({1})", p1, p2);
     }
 
     public string deleteString(int n)
     {
-        return String.Format("DELETE FROM Master2Ring WHERE Ring_ID = (SELECT TOP {0} Ring_ID  FROM Ring); DELETE TOP({0}) FROM Ring;",n);
+        return String.Format("DELETE FROM Master2Ring WHERE Ring_ID IN (SELECT TOP {0} Ring_ID  FROM Ring); DELETE TOP({0}) FROM Ring;",n);
     }
     public string updateFormat()
     {

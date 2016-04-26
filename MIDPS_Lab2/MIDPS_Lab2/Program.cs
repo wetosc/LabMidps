@@ -102,8 +102,15 @@ namespace MIDPS_Lab2
             Console.WriteLine("    4) Sort elements");
             Console.WriteLine("    5) Display elements");
             Console.WriteLine("    6) Exit program");
-            int f = 10; Int32.TryParse(Console.ReadKey(false).KeyChar.ToString(), out f);
-            return f;
+            int f = -1;
+            if (Int32.TryParse(Console.ReadKey(false).KeyChar.ToString(), out f) && f>=0 && f<7)
+            {
+                return f;
+            }
+            else
+            {
+                return showMenu();
+            }
         }
 
         public SQLObject addThing()
@@ -126,7 +133,8 @@ namespace MIDPS_Lab2
                         temp.Material = Console.ReadLine();
                         Console.WriteLine("Ring name?");
                         temp.Name = Console.ReadLine();
-                        Console.WriteLine("Write the id of the ring masters (0 for no master) :");
+                        Console.WriteLine("Write the list of ids of the ring masters:");
+                        Console.WriteLine("Wrong ids will be discarded. Enter only verifyed ids. To end the list, type 0.");
                         temp.OwnerID = new List<uint>();
                         while (UInt32.TryParse(Console.ReadLine(), out f) && f > 0)
                         {
@@ -141,7 +149,8 @@ namespace MIDPS_Lab2
                         temp.Name = Console.ReadLine();
                         Console.WriteLine("Wizard color?");
                         temp.Color = Console.ReadLine();
-                        Console.WriteLine("Write the id of the rings owned by this wizard (0 for no ring) :");
+                        Console.WriteLine("Write the list of ids of the ring owned by this wizard:");
+                        Console.WriteLine("Wrong ids will be discarded. Enter only verifyed ids. To end the list, type 0.");
                         temp.RingID = new List<uint>();
                         while (UInt32.TryParse(Console.ReadLine(), out f) && f > 0)
                         {
@@ -157,6 +166,7 @@ namespace MIDPS_Lab2
                         Console.WriteLine("Elf category?");
                         temp.Category = Console.ReadLine();
                         Console.WriteLine("Elf friend ID?");
+                        Console.WriteLine("Wrong ids will be discarded. Enter only verifyed ids. To end the list, type 0.");
                         if (UInt32.TryParse(Console.ReadLine(), out f))
                         {
                             temp.HobbitFriend = (UInt32)f;
@@ -166,7 +176,7 @@ namespace MIDPS_Lab2
                 case '3':
                     {
                         Orc temp = new Orc();
-                        Console.WriteLine("Orc master?");
+                        Console.WriteLine("Orc master id?");
                         temp.Master = Console.ReadLine();
                         Console.WriteLine("Orc id?");
                         f = 0;
