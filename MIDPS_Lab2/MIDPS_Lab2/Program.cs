@@ -13,6 +13,7 @@ namespace MIDPS_Lab2
             Console.WriteLine("This program was created in educational purposes only. It doesn't work like an enterprise solution.");
             Console.WriteLine("That's why if you enter a wrong value you won't see some fancy error message;");
             Console.WriteLine("The program will continue to work, even if you try to break him.");
+            Console.WriteLine();
             Program instance = new Program();
             while (true)
             {
@@ -46,7 +47,7 @@ namespace MIDPS_Lab2
                 case 1:
                     {
                         Type t = textManager.deleteItem();
-                        if (t != null) Console.WriteLine(sqlHandler.deleteOne(textManager.deleteItem()) > 0 ? "Succes" : "Error");
+                        if (t != null) Console.WriteLine(sqlHandler.deleteOne(t) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 2:
@@ -178,10 +179,6 @@ namespace MIDPS_Lab2
                         Orc temp = new Orc();
                         Console.WriteLine("Orc master id?");
                         temp.Master = Console.ReadLine();
-                        Console.WriteLine("Orc id?");
-                        f = 0;
-                        UInt32.TryParse(Console.ReadLine(), out f);
-                        temp.id = f;
                         Console.WriteLine("Orc power?");
                         float f1 = 0; float.TryParse(Console.ReadLine(), out f1);
                         temp.Power = f1;
@@ -194,10 +191,6 @@ namespace MIDPS_Lab2
                         temp.Name = Console.ReadLine();
                         Console.WriteLine("Hobbit family?");
                         temp.Family = Console.ReadLine();
-                        Console.WriteLine("Hobbit id?");
-                        f = 0;
-                        UInt32.TryParse(Console.ReadLine(), out f);
-                        temp.id = f;
                         return temp;
                     }
                 default:
