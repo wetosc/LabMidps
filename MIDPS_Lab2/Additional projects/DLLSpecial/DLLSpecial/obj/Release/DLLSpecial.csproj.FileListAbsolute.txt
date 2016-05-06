@@ -1,0 +1,4 @@
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\bin\Release\DLLSpecial.dll
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\bin\Release\DLLSpecial.pdb
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\obj\Release\DLLSpecial.dll
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\obj\Release\DLLSpecial.pdb

@@ -1,0 +1,8 @@
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\MIDPS_Lab3\MIDPS_Lab3\bin\Debug\MIDPS_Lab3.exe.config
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\MIDPS_Lab3\MIDPS_Lab3\bin\Debug\MIDPS_Lab3.exe
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\MIDPS_Lab3\MIDPS_Lab3\bin\Debug\MIDPS_Lab3.pdb
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\MIDPS_Lab3\MIDPS_Lab3\bin\Debug\DLLSpecial.dll
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\MIDPS_Lab3\MIDPS_Lab3\bin\Debug\DLLSpecial.pdb
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\MIDPS_Lab3\MIDPS_Lab3\obj\Debug\MIDPS_Lab3.csprojResolveAssemblyReference.cache
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\MIDPS_Lab3\MIDPS_Lab3\obj\Debug\MIDPS_Lab3.exe
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\MIDPS_Lab3\MIDPS_Lab3\obj\Debug\MIDPS_Lab3.pdb

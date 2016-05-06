@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SQL;
 
-namespace MIDPS_Lab2
+namespace MIDPS_Lab3
 {
     class Program
     {
@@ -110,7 +110,7 @@ namespace MIDPS_Lab2
             Console.WriteLine("    5) Display elements");
             Console.WriteLine("    6) Exit program");
             int f = -1;
-            if (Int32.TryParse(Console.ReadKey(false).KeyChar.ToString(), out f) && f>=0 && f<7)
+            if (Int32.TryParse(Console.ReadKey(false).KeyChar.ToString(), out f) && f >= 0 && f < 7)
             {
                 return f;
             }
