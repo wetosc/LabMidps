@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DLLSpecial;
 using SQL;
 
 namespace MIDPS_Lab3

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elf.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="Hobbit.cs" />
     <Compile Include="Orc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
