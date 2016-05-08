@@ -1,19 +1,20 @@
 ﻿using System;
 using SQL;
-public class Hobbit: IComparable, SQLObject
+public class Hobbit : IComparable, SQLObject
 {
     public string Name { get; set; }
     public uint id { get; set; }
     public string Family { get; set; }
     public string Region { get; set; }
+    public uint sqlID { get; set; }
 
     public Hobbit()
-	{
-	}
+    {
+    }
 
     public override string ToString()
     {
-        return String.Format("{0} nr. {1} with Name = {2}","Hobbit", id, Name);
+        return String.Format("{0} nr. {1} with Name = {2}", "Hobbit", id, Name);
     }
     public int CompareTo(object obj)
     {
@@ -21,12 +22,12 @@ public class Hobbit: IComparable, SQLObject
     }
     public string insertString()
     {
-        string p1 = "Name, Region", p2 = String.Format("'{0}','{1}'", this.Name, this.Region);
+        string p1 = "id, Name, Region", p2 = String.Format("'{0}','{1}','{2}'", this.sqlID, this.Name, this.Region);
         return String.Format("INSERT INTO Hobbit ({0}) VALUES ({1});", p1, p2);
     }
     public string deleteString(int n)
     {
-        return String.Format("UPDATE Elf SET Hobbit_Friend = NULL WHERE Hobbit_Friend IN (SELECT TOP {0} id FROM Hobbit); UPDATE Wizard SET Hobbit_Friend = NULL WHERE Hobbit_Friend IN (SELECT TOP {0} id FROM Hobbit); DELETE TOP({0}) FROM Hobbit;",n);
+        return String.Format("UPDATE Elf SET Hobbit_Friend = NULL WHERE Hobbit_Friend IN (SELECT TOP {0} id FROM Hobbit); UPDATE Wizard SET Hobbit_Friend = NULL WHERE Hobbit_Friend IN (SELECT TOP {0} id FROM Hobbit); DELETE TOP({0}) FROM Hobbit;", n);
     }
     public string updateFormat()
     {

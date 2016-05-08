@@ -9,6 +9,11 @@ namespace SQL
         string deleteString(int n);
         string updateFormat();
         string sortString();
+        uint sqlID
+        {
+            get;
+            set;
+        }
     }
 
 

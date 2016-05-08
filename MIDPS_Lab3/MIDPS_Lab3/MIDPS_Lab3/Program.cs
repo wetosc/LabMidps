@@ -23,31 +23,30 @@ namespace MIDPS_Lab3
         }
 
         TextManager textManager;
-        SqlHandler sqlHandler;
 
         public Program()
         {
 
-            sqlHandler = new SqlHandler();
+            Singleton.Instance.start();
             textManager = new TextManager();
-            sqlHandler.Connect();
         }
 
 
         void onChoice(int choice)
         {
+
             switch (choice)
             {
                 case 0:
                     {
                         SQLObject data = textManager.addThing();
-                        if (data != null) Console.WriteLine(sqlHandler.Insert(data) > 0 ? "Succes" : "Error");
+                        if (data != null) Console.WriteLine(Singleton.Instance.Insert(data) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 1:
                     {
                         Type t = textManager.deleteItem();
-                        if (t != null) Console.WriteLine(sqlHandler.deleteOne(t) > 0 ? "Succes" : "Error");
+                        if (t != null) Console.WriteLine(Singleton.Instance.deleteOne(t) > 0 ? "Succes" : "Error");
                         break;
                     }
                 case 2:
@@ -57,7 +56,7 @@ namespace MIDPS_Lab3
                         {
                             Console.WriteLine("How many records do you want to delete?");
                             UInt32 f = 0;
-                            if (UInt32.TryParse(Console.ReadLine(), out f)) Console.WriteLine(sqlHandler.deleteMultiple(t, (int)f) > 0 ? "Succes" : "Error");
+                            if (UInt32.TryParse(Console.ReadLine(), out f)) Console.WriteLine(Singleton.Instance.deleteMultiple(t, (int)f) > 0 ? "Succes" : "Error");
                         }
                         break;
                     }
@@ -70,18 +69,18 @@ namespace MIDPS_Lab3
                             string a = Console.ReadLine();
                             Console.WriteLine("Write the new name of the object");
                             string b = Console.ReadLine();
-                            Console.WriteLine(sqlHandler.update(t, a, b) > 0 ? "Succes" : "Error");
+                            Console.WriteLine(Singleton.Instance.update(t, a, b) > 0 ? "Succes" : "Error");
                         }
                         break;
                     }
                 case 4:
                     {
-                        textManager.sortItems(sqlHandler);
+                        textManager.sortItems();
                         break;
                     }
                 case 5:
                     {
-                        textManager.showItems(sqlHandler);
+                        textManager.showItems();
                         break;
                     }
                 case 6:
@@ -225,7 +224,7 @@ namespace MIDPS_Lab3
             }
         }
 
-        public void sortItems(SqlHandler sql)
+        public void sortItems()
         {
             Console.WriteLine(" What do you want to sort today?");
             Console.WriteLine("    0) Rings");
@@ -237,14 +236,14 @@ namespace MIDPS_Lab3
             Console.WriteLine();
             switch (x)
             {
-                case '0': sql.sort<Ring>(); break;
-                case '1': sql.sort<Wizard>(); break;
-                case '2': sql.sort<Elf>(); break;
-                case '3': sql.sort<Orc>(); break;
-                case '4': sql.sort<Hobbit>(); break;
+                case '0': Singleton.Instance.sort<Ring>(); break;
+                case '1': Singleton.Instance.sort<Wizard>(); break;
+                case '2': Singleton.Instance.sort<Elf>(); break;
+                case '3': Singleton.Instance.sort<Orc>(); break;
+                case '4': Singleton.Instance.sort<Hobbit>(); break;
             }
         }
-        public void showItems(SqlHandler sql)
+        public void showItems()
         {
             UInt32 f;
             Console.WriteLine(" What do you want to see today?");
@@ -260,27 +259,27 @@ namespace MIDPS_Lab3
             Console.WriteLine();
             switch (x)
             {
-                case '0': sql.read<Ring>(); break;
-                case '1': sql.read<Wizard>(); break;
-                case '2': sql.read<Elf>(); break;
-                case '3': sql.read<Orc>(); break;
-                case '4': sql.read<Hobbit>(); break;
+                case '0': Singleton.Instance.read<Ring>(); break;
+                case '1': Singleton.Instance.read<Wizard>(); break;
+                case '2': Singleton.Instance.read<Elf>(); break;
+                case '3': Singleton.Instance.read<Orc>(); break;
+                case '4': Singleton.Instance.read<Hobbit>(); break;
                 case '5':
                     {
                         Console.WriteLine("Write the id of the master:");
-                        if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(0, (int)f); }
+                        if (UInt32.TryParse(Console.ReadLine(), out f)) { Singleton.Instance.readSpecial(0, (int)f); }
                         break;
                     }
                 case '6':
                     {
                         Console.WriteLine("Write the id of the ring:");
-                        if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(1, (int)f); }
+                        if (UInt32.TryParse(Console.ReadLine(), out f)) { Singleton.Instance.readSpecial(1, (int)f); }
                         break;
                     }
                 case '7':
                     {
                         Console.WriteLine("Write the id of the hobbit:");
-                        if (UInt32.TryParse(Console.ReadLine(), out f)) { sql.readSpecial(2, (int)f); }
+                        if (UInt32.TryParse(Console.ReadLine(), out f)) { Singleton.Instance.readSpecial(2, (int)f); }
                         break;
                     }
             }

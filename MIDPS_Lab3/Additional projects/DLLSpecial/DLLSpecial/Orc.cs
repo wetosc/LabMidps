@@ -5,7 +5,7 @@ public class Orc : IComparable, SQLObject
     public uint id { get; set; }
     public float Power { get; set; }
     public string Master { get; set; }
-
+    public uint sqlID { get; set; }
     public Orc()
     {
 
@@ -20,13 +20,13 @@ public class Orc : IComparable, SQLObject
     }
     public string insertString()
     {
-        string p1 = "Power", p2 = String.Format("'{0}'", this.Power);
+        string p1 = "id, Power", p2 = String.Format("'{0}','{1}'", this.sqlID, this.Power);
         return String.Format("INSERT INTO Orc ({0}) VALUES ({1});", p1, p2);
     }
 
     public string deleteString(int n)
     {
-        return String.Format("DELETE TOP({0}) FROM Orc;",n);
+        return String.Format("DELETE TOP({0}) FROM Orc;", n);
     }
     public string updateFormat()
     {

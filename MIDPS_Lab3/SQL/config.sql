@@ -15,14 +15,14 @@ DROP TABLE Hobbit;
 -------------------------
 
 CREATE TABLE Hobbit (
-  id INTEGER IDENTITY NOT NULL,
+  id INTEGER NOT NULL,
   Name VARCHAR(256) NULL DEFAULT NULL,
   Region VARCHAR(256) NULL DEFAULT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE Elf (
-  id INTEGER IDENTITY NOT NULL,
+  id INTEGER  NOT NULL,
   Name VARCHAR(256) NULL DEFAULT NULL,
   Category VARCHAR(256) NULL DEFAULT NULL,
   Hobbit_Friend INTEGER NULL DEFAULT NULL,
@@ -31,14 +31,14 @@ CREATE TABLE Elf (
 );
 
 CREATE TABLE Ring (
-  id INTEGER IDENTITY NOT NULL,
+  id INTEGER  NOT NULL,
   Material VARCHAR(256) NULL DEFAULT NULL,
   Name VARCHAR(256) NULL DEFAULT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE Wizard (
-  id INTEGER IDENTITY NOT NULL,
+  id INTEGER NOT NULL,
   Name VARCHAR(256) NULL DEFAULT NULL,
   Color VARCHAR(256) NULL DEFAULT NULL,
   Hobbit_Friend INTEGER NULL DEFAULT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE Master2Ring (
 
 
 CREATE TABLE Orc (
-  id INTEGER IDENTITY NOT NULL,
+  id INTEGER NOT NULL,
   Power FLOAT NULL DEFAULT NULL,
   Master_ID INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (id),
@@ -76,19 +76,19 @@ ALTER TABLE Orc ADD CONSTRAINT  Master_ID_FK2 FOREIGN KEY (Master_ID) REFERENCES
 -- Add values for test --
 -------------------------
 -- Order:
-/*1*/INSERT INTO Ring (Material,Name) VALUES ('Wood','Aredian');
-/*1*/INSERT INTO Ring (Material,Name) VALUES ('Silver','Turmonil');
-/*1*/INSERT INTO Ring (Material,Name) VALUES ('Wood','Canterbro');
-/*2*/INSERT INTO Hobbit (Name,Region) VALUES ('Denduf','West');
-/*2*/INSERT INTO Hobbit (Name,Region) VALUES ('Arpin','Hills');
-/*3*/INSERT INTO Wizard (Name,Color,Hobbit_Friend) VALUES ('Heirin','Yellow', 1);
-/*3*/INSERT INTO Wizard (Name,Color,Hobbit_Friend) VALUES ('Olsif','Black', 1);
-/*4*/INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES (1,1);
-/*4*/INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES (1,2);
-/*4*/INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES (2,2);
-/*5*/INSERT INTO Elf (Name,Category,Hobbit_Friend) VALUES ('Santiras','Forest',2);
-/*5*/INSERT INTO Elf (Name,Category,Hobbit_Friend) VALUES ('Oripon','Sea',2);
-/*6*/INSERT INTO Orc (Power,Master_ID) VALUES (5,2);
+/*1*/INSERT INTO Ring (id,Material,Name) VALUES (1,'Wood','Aredian');
+/*1*/INSERT INTO Ring (id,Material,Name) VALUES (2,'Silver','Turmonil');
+/*1*/INSERT INTO Ring (id,Material,Name) VALUES (3,'Wood','Canterbro');
+/*2*/INSERT INTO Hobbit (id,Name,Region) VALUES (4,'Denduf','West');
+/*2*/INSERT INTO Hobbit (id,Name,Region) VALUES (5,'Arpin','Hills');
+/*3*/INSERT INTO Wizard (id,Name,Color,Hobbit_Friend) VALUES (6,'Heirin','Yellow', 4);
+/*3*/INSERT INTO Wizard (id,Name,Color,Hobbit_Friend) VALUES (7,'Olsif','Black', 4);
+/*4*/INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES (1,6);
+/*4*/INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES (1,7);
+/*4*/INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES (2,7);
+/*5*/INSERT INTO Elf (id,Name,Category,Hobbit_Friend) VALUES (8,'Santiras','Forest',5);
+/*5*/INSERT INTO Elf (id,Name,Category,Hobbit_Friend) VALUES (9,'Oripon','Sea',5);
+/*6*/INSERT INTO Orc (id,Power,Master_ID) VALUES (10,5,7);
 
 -------------------------
 -- Show table values ----
@@ -110,8 +110,3 @@ DELETE Master2Ring;
 DELETE Wizard;
 DELETE Hobbit;
 DELETE Ring;
-DBCC CHECKIDENT (Orc, RESEED, 0); --(if you delete something and want to restart identity)
-DBCC CHECKIDENT (Elf, RESEED, 0); --(if you delete something and want to restart identity)
-DBCC CHECKIDENT (Wizard, RESEED, 0); --(if you delete something and want to restart identity)
-DBCC CHECKIDENT (Hobbit, RESEED, 0); --(if you delete something and want to restart identity)
-DBCC CHECKIDENT (Ring, RESEED, 0); --(if you delete something and want to restart identity)
