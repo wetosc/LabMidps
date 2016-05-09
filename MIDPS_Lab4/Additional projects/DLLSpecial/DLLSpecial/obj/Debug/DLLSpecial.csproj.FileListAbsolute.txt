@@ -1,0 +1,5 @@
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\bin\Debug\DLLSpecial.dll
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\bin\Debug\DLLSpecial.pdb
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\obj\Debug\DLLSpecial.csprojResolveAssemblyReference.cache
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\obj\Debug\DLLSpecial.dll
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab2\Additional projects\DLLSpecial\DLLSpecial\obj\Debug\DLLSpecial.pdb
