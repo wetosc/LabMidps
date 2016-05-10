@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Data;
+using System.Diagnostics;
 namespace MIDPS_Lab4
 {
     /// <summary>
@@ -20,9 +21,62 @@ namespace MIDPS_Lab4
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Controller myController { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            myController = new MainController(this);
+            myController.OnNotification(Notification.PageChange,this,MiddleEarth.Ring);
+        }
+
+        public void hideList(bool hide)
+        {
+            if (hide) { dataGrid2.Visibility = Visibility.Hidden; label2.Visibility = Visibility.Hidden; }
+            else { dataGrid2.Visibility = Visibility.Visible; label2.Visibility = Visibility.Visible; }
+        }
+
+        public void setData1(DataTable data)
+        {
+            dataGrid.ItemsSource = data.DefaultView;
+            label.Content = myController.model.table1Title();
+        }
+        public void setData2(DataTable data)
+        {
+            dataGrid2.ItemsSource = data.DefaultView;
+            label2.Content = myController.model.table2Title();
+        }
+
+        private void Ring_Page(object sender, RoutedEventArgs e)
+        {
+            myController.OnNotification(Notification.PageChange, this, MiddleEarth.Ring);
+        }
+        private void Wizard_Page(object sender, RoutedEventArgs e)
+        {
+            myController.OnNotification(Notification.PageChange, this, MiddleEarth.Wizard);
+        }
+        private void Elf_Page(object sender, RoutedEventArgs e)
+        {
+            myController.OnNotification(Notification.PageChange, this, MiddleEarth.Elf);
+        }
+        private void Orc_Page(object sender, RoutedEventArgs e)
+        {
+            myController.OnNotification(Notification.PageChange, this, MiddleEarth.Orc);
+        }
+        private void Hobbit_Page(object sender, RoutedEventArgs e)
+        {
+            myController.OnNotification(Notification.PageChange, this, MiddleEarth.Hobbit);
+        }
+
+        private void selectRow1(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView row = dataGrid.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                int id = row.Row.Field<int>("id");
+                myController.OnNotification(Notification.RowSelected, this, id);
+            }
+            
         }
     }
 }

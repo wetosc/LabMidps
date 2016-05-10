@@ -9,3 +9,8 @@ C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\Additional projects\DLLS
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\Additional projects\DLLSpecial\DLLSpecial\obj\Release\DLLSpecial.csprojResolveAssemblyReference.cache
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\Additional projects\DLLSpecial\DLLSpecial\bin\Release\INIFileParser.dll
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab3\Additional projects\DLLSpecial\DLLSpecial\bin\Release\INIFileParser.xml
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\Additional projects\DLLSpecial\DLLSpecial\bin\Release\DLLSpecial.dll
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\Additional projects\DLLSpecial\DLLSpecial\bin\Release\DLLSpecial.pdb
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\Additional projects\DLLSpecial\DLLSpecial\obj\Release\DLLSpecial.csprojResolveAssemblyReference.cache
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\Additional projects\DLLSpecial\DLLSpecial\obj\Release\DLLSpecial.dll
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\Additional projects\DLLSpecial\DLLSpecial\obj\Release\DLLSpecial.pdb
