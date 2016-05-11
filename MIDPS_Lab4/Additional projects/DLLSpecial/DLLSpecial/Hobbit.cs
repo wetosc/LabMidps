@@ -35,7 +35,7 @@ namespace DLLSpecial
         }
         public string select2(int id)
         {
-            return "";
+            return String.Format("SELECT * FROM Wizard WHERE Hobbit_Friend = {0}; SELECT * FROM Elf WHERE Hobbit_Friend = {0};", id);
         }
         public string insertString()
         {

@@ -28,10 +28,10 @@ namespace DLLSpecial
         //{
         //    return "SELECT * FROM Wizard ORDER BY Name;";
         //}
-        //public string verifyRing()
-        //{
-        //    return "SELECT COUNT(*) FROM Ring WHERE id = '{0}';";
-        //}
+        public string verifyRing()
+        {
+            return "SELECT COUNT(*) FROM Ring WHERE id = '{0}';";
+        }
 
         #region SQLObject
         public string select()

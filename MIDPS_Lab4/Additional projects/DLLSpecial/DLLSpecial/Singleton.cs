@@ -40,7 +40,6 @@ namespace DLLSpecial
         }
 
         public SqlConnection connection { get; set; }
-        private uint currentID;
 
         public void start()
         {
@@ -63,7 +62,7 @@ namespace DLLSpecial
             }
         }
 
-        public DataTable getData(Type t)
+        public DataSet getData(Type t)
         {
             connect();
 
@@ -73,11 +72,11 @@ namespace DLLSpecial
             sqlCmd.Connection = connection;
             sqlCmd.CommandText = obj.select();
             SqlDataAdapter sqlDataAdap = new SqlDataAdapter(sqlCmd);
-            DataTable dtRecord = new DataTable();
+            DataSet dtRecord = new DataSet();
             sqlDataAdap.Fill(dtRecord);
             return dtRecord;
         }
-        public DataTable getData2(Type t, int id)
+        public DataSet getData2(Type t, int id)
         {
             connect();
 
@@ -87,82 +86,79 @@ namespace DLLSpecial
             sqlCmd.Connection = connection;
             sqlCmd.CommandText = obj.select2(id);
             SqlDataAdapter sqlDataAdap = new SqlDataAdapter(sqlCmd);
-            DataTable dtRecord = new DataTable();
+            DataSet dtRecord = new DataSet();
             sqlDataAdap.Fill(dtRecord);
             return dtRecord;
         }
 
-        //public int Insert(SQLObject temp)
-        //{
-        //    connect();
+        public int Insert(SQLObject temp)
+        {
+            connect();
 
-        //    currentID += 1;
-        //    FileManager.writeID(currentID);
-        //    temp.sqlID = currentID;
-        //    SqlCommand cmd = new SqlCommand();
-        //    cmd.Connection = connection;
-        //    switch (temp.GetType().ToString())
-        //    {
-        //        case "Ring":
-        //            {
-        //                cmd.CommandText = temp.insertString();
-        //                int mID = (int)cmd.ExecuteScalar();
-        //                if (mID > 0)
-        //                {
-        //                    foreach (uint id in ((Ring)temp).OwnerID)
-        //                    {
-        //                        cmd.CommandText = String.Format(((Ring)temp).verifyMaster(), id);
-        //                        if ((int)cmd.ExecuteScalar() > 0)
-        //                        {
-        //                            cmd.CommandText = String.Format("INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES ('{0}','{1}');", mID, id);
-        //                            cmd.ExecuteNonQuery();
-        //                        }
-        //                    }
-        //                    return 1;
-        //                }
-        //                break;
-        //            }
-        //        case "Wizard":
-        //            {
-        //                cmd.CommandText = temp.insertString();
-        //                int mID = (int)cmd.ExecuteScalar();
-        //                if (mID > 0)
-        //                {
-        //                    foreach (uint id in ((Wizard)temp).RingID)
-        //                    {
-        //                        cmd.CommandText = String.Format(((Wizard)temp).verifyRing(), id);
-        //                        if ((int)cmd.ExecuteScalar() > 0)
-        //                        {
-        //                            cmd.CommandText = String.Format("INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES ('{0}','{1}');", id, mID);
-        //                            cmd.ExecuteNonQuery();
-        //                        }
-        //                    }
-        //                    return 1;
-        //                }
-        //                break;
-        //            }
-        //        case "Elf":
-        //            {
-        //                cmd.CommandText = ((Elf)temp).verifyHobbit();
-        //                if ((int)cmd.ExecuteScalar() > 0)
-        //                {
-        //                    cmd.CommandText = ((Elf)temp).insertWithFriendString();
-        //                    return cmd.ExecuteNonQuery();
-        //                }
-        //                else
-        //                {
-        //                    cmd.CommandText = temp.insertString();
-        //                    return cmd.ExecuteNonQuery();
-        //                }
-        //                break;
-        //            }
-        //        default:
-        //            cmd.CommandText = temp.insertString();
-        //            return cmd.ExecuteNonQuery();
-        //    }
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            switch (temp.GetType().ToString())
+            {
+                case "Ring":
+                    {
+                        cmd.CommandText = temp.insertString();
+                        int mID = (int)cmd.ExecuteScalar();
+                        if (mID > 0)
+                        {
+                            foreach (uint id in ((Ring)temp).OwnerID)
+                            {
+                                cmd.CommandText = String.Format(((Ring)temp).verifyMaster(), id);
+                                if ((int)cmd.ExecuteScalar() > 0)
+                                {
+                                    cmd.CommandText = String.Format("INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES ('{0}','{1}');", mID, id);
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                            return 1;
+                        }
+                        break;
+                    }
+                case "Wizard":
+                    {
+                        cmd.CommandText = temp.insertString();
+                        int mID = (int)cmd.ExecuteScalar();
+                        if (mID > 0)
+                        {
+                            foreach (uint id in ((Wizard)temp).RingID)
+                            {
+                                cmd.CommandText = String.Format(((Wizard)temp).verifyRing(), id);
+                                if ((int)cmd.ExecuteScalar() > 0)
+                                {
+                                    cmd.CommandText = String.Format("INSERT INTO Master2Ring (Ring_ID,Master_ID) VALUES ('{0}','{1}');", id, mID);
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                            return 1;
+                        }
+                        break;
+                    }
+                case "Elf":
+                    {
+                        cmd.CommandText = ((Elf)temp).verifyHobbit();
+                        if ((int)cmd.ExecuteScalar() > 0)
+                        {
+                            cmd.CommandText = ((Elf)temp).insertString();
+                            return cmd.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            cmd.CommandText = temp.insertString();
+                            return cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    }
+                default:
+                    cmd.CommandText = temp.insertString();
+                    return cmd.ExecuteNonQuery();
+            }
 
-        //    return 0;
-        //}
+            return 0;
+        }
 
         //public int deleteOne(Type t)
         //{

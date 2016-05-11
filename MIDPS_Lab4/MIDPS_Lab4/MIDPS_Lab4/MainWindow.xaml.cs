@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.Diagnostics;
+using MaterialDesignThemes.Wpf;
+
 namespace MIDPS_Lab4
 {
     /// <summary>
@@ -36,14 +38,18 @@ namespace MIDPS_Lab4
             else { dataGrid2.Visibility = Visibility.Visible; label2.Visibility = Visibility.Visible; }
         }
 
-        public void setData1(DataTable data)
+        public void setData1(DataSet data)
         {
-            dataGrid.ItemsSource = data.DefaultView;
+            dataGrid.ItemsSource = data.Tables[0].DefaultView;
             label.Content = myController.model.table1Title();
         }
-        public void setData2(DataTable data)
+        public void setData2(DataSet data)
         {
-            dataGrid2.ItemsSource = data.DefaultView;
+            if (data.Tables.Count > 1)
+            {
+                data.Tables[0].Merge(data.Tables[1]);
+            }
+            dataGrid2.ItemsSource = data.Tables[0].DefaultView;
             label2.Content = myController.model.table2Title();
         }
 
@@ -77,6 +83,15 @@ namespace MIDPS_Lab4
                 myController.OnNotification(Notification.RowSelected, this, id);
             }
             
+        }
+
+        private void newItem(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void Sample2_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
+        {
+            Console.WriteLine("SAMPLE 2: Closing dialog with parameter: " + (eventArgs.Parameter ?? ""));
         }
     }
 }

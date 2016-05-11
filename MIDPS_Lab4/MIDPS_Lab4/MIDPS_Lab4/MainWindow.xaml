@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:MIDPS_Lab4"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
@@ -39,6 +40,35 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
+        <materialDesign:DialogHost Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="16">
+                    <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" x:Name="FruitTextBox" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        IsDefault="True"
+                                        Margin="0 8 8 0"
+                                        Command="materialDesign:DialogHost.CloseDialogCommand">
+                            <Button.CommandParameter>
+                                <system:Boolean>True</system:Boolean>
+                            </Button.CommandParameter>
+                            ACCEPT
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        IsCancel="True"
+                                        Margin="0 8 8 0"
+                                        Command="materialDesign:DialogHost.CloseDialogCommand">
+                            <Button.CommandParameter>
+                                <system:Boolean>False</system:Boolean>
+                            </Button.CommandParameter>
+                            CANCEL
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
+
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"
                     Grid.RowSpan="2" Grid.Column="0" Grid.Row="0" Margin="0,10,0,0">
             <Button Content="Ring" Margin="2,0,0,2" Click="Ring_Page"/>
@@ -55,8 +85,18 @@
                   Grid.Row="1" Grid.Column="1"/>
         <StackPanel Margin="10,0,0,10" VerticalAlignment="Bottom" Orientation="Horizontal"
                         Grid.Row="2" Grid.Column="1">
-            <Button x:Name="button" Style="{StaticResource MaterialDesignFloatingActionButton}"
+            <Button x:Name="button" Style="{StaticResource MaterialDesignFloatingActionButton}" 
+                    Click="newItem" materialDesign:DialogHost.DialogClosingAttached="Sample2_DialogHost_OnDialogClosing"
+                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                 		HorizontalAlignment="Left" Margin="0,0,16,0" Width="50" Height="50">
+                <Button.CommandParameter>
+                    <StackPanel Margin="16">
+                        <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center" Margin="16" IsIndeterminate="True" Value="0" />
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" 
+                                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                        HorizontalAlignment="Center">CANCEL</Button>
+                    </StackPanel>
+                </Button.CommandParameter>
                 <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
             </Button>
             <Button x:Name="button1" Style="{StaticResource MaterialDesignFloatingActionButton}"
@@ -79,6 +119,8 @@
                               SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False"
                   IsReadOnly="True" Grid.Row="1"
                       Grid.Column="2" Grid.RowSpan="1"/>
-        
+
+
+
     </Grid>
 </Window>

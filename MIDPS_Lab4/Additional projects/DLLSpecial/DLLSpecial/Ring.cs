@@ -35,10 +35,10 @@ namespace DLLSpecial
         //{
         //    return "SELECT * FROM Ring ORDER BY Name;";
         //}
-        //public string verifyMaster()
-        //{
-        //    return "SELECT COUNT(*) FROM Wizard WHERE id = '{0}';";
-        //}
+        public string verifyMaster()
+        {
+            return "SELECT COUNT(*) FROM Wizard WHERE id = '{0}';";
+        }
 
         #region SQLObject
         public string select()

@@ -39,10 +39,11 @@ namespace DLLSpecial
         //{
         //    return "SELECT * FROM Elf ORDER BY Name;";
         //}
-        //public string verifyHobbit()
-        //{
-        //    return String.Format("SELECT COUNT(*) FROM Hobbit WHERE id = '{0}';", HobbitFriend);
-        //}
+
+        public string verifyHobbit()
+        {
+            return String.Format("SELECT COUNT(*) FROM Hobbit WHERE id = '{0}';", HobbitFriend);
+        }
 
         #region SQLObject
         public string select()

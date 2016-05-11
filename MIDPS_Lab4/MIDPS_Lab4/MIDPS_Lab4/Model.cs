@@ -27,7 +27,6 @@ namespace MIDPS_Lab4
 
         public Model()
         {
-            currentPage = MiddleEarth.Ring;
             defineData();
         }
         private void defineData()
@@ -38,7 +37,7 @@ namespace MIDPS_Lab4
                 [MiddleEarth.Wizard] = false,
                 [MiddleEarth.Elf] = true,
                 [MiddleEarth.Orc] = true,
-                [MiddleEarth.Hobbit] = true
+                [MiddleEarth.Hobbit] = false
             };
             table1TitleDict = new Dictionary<string, string>
             {
