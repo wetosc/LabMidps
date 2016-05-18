@@ -5,6 +5,7 @@ C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\bi
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\bin\Release\MaterialDesignColors.dll
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\bin\Release\MaterialDesignThemes.Wpf.dll
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\bin\Release\DLLSpecial.pdb
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\MIDPS_Lab4.csprojResolveAssemblyReference.cache
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\MainWindow.g.cs
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\App.g.cs
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\MIDPS_Lab4_MarkupCompile.cache
@@ -16,4 +17,3 @@ C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\ob
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\MIDPS_Lab4.csproj.GenerateResource.Cache
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\MIDPS_Lab4.exe
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\MIDPS_Lab4.pdb
-C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\MIDPS_Lab4.csprojResolveAssemblyReference.cache
