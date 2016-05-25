@@ -36,7 +36,7 @@ namespace DLLSpecial
         }
         public string insertString()
         {
-            string p1 = "id, Power", p2 = String.Format("'{0}','{1}'", this.sqlID, this.Power);
+            string p1 = "Power", p2 = String.Format("'{0}'", this.Power);
             return String.Format("INSERT INTO Orc ({0}) VALUES ({1});", p1, p2);
         }
 

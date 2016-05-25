@@ -88,7 +88,7 @@ namespace MIDPS_Lab4
         private void newItem(object sender, RoutedEventArgs e)
         {
             DialogAdd dialog = new DialogAdd(myController.model);
-            if (dialog.ShowDialog() == true) { }
+            if (dialog.ShowDialog() == true) { myController.OnNotification(Notification.PageChange, this, myController.model.currentPage); }
                 
         }
 

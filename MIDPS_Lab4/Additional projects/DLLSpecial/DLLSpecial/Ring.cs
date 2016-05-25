@@ -51,7 +51,7 @@ namespace DLLSpecial
         }
         public string insertString()
         {
-            string p1 = "id, Material, Name", p2 = String.Format("'{0}','{1}','{2}'", this.sqlID, this.Material, this.Name);
+            string p1 = "Material, Name", p2 = String.Format("'{0}','{1}'", this.Material, this.Name);
             return String.Format("INSERT INTO Ring ({0}) output INSERTED.ID VALUES ({1})", p1, p2);
         }
         public string deleteString(int n)
