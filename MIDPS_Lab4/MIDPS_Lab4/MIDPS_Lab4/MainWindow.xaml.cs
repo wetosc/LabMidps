@@ -87,6 +87,9 @@ namespace MIDPS_Lab4
 
         private void newItem(object sender, RoutedEventArgs e)
         {
+            DialogAdd dialog = new DialogAdd(myController.model);
+            if (dialog.ShowDialog() == true) { }
+                
         }
 
         private void Sample2_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)

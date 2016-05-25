@@ -24,6 +24,7 @@ namespace MIDPS_Lab4
 
         private Dictionary<string, bool> shouldHideListDict;
         private Dictionary<string, string> table1TitleDict, table2TitleDict;
+        private Dictionary<string, AddNewModel> addNewConfigDict;
 
         public Model()
         {
@@ -55,6 +56,15 @@ namespace MIDPS_Lab4
                 [MiddleEarth.Orc] = "",
                 [MiddleEarth.Hobbit] = "Friends"
             };
+            addNewConfigDict = new Dictionary<string, AddNewModel>
+            {
+                [MiddleEarth.Ring] = new AddNewRing(),
+                [MiddleEarth.Wizard] = new AddNewWizard(),
+                [MiddleEarth.Elf] = new AddNewElf(),
+                [MiddleEarth.Orc] = new AddNewOrc(),
+                [MiddleEarth.Hobbit] = new AddNewHobbit()
+            };
+
 
         }
         public bool shouldHideList(string obj)
@@ -69,6 +79,12 @@ namespace MIDPS_Lab4
         {
             return table2TitleDict[currentPage];
         }
+
+        public AddNewModel addNewConfig()
+        {
+            return addNewConfigDict[currentPage];
+        }
+
 
         public Type typeFromString(string str)
         {

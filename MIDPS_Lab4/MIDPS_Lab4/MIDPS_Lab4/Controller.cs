@@ -9,17 +9,16 @@ namespace MIDPS_Lab4
 {
     public abstract class Controller
     {
-        public MainWindow view { get; set; }
         public Model model { get; set; }
-        abstract public void  OnNotification(string eventPath, Object target, params object[] data);
+        abstract public void OnNotification(string eventPath, Object target, params object[] data);
         public Controller()
         {
-
         }
     }
 
     public class MainController : Controller
     {
+        public MainWindow view { get; set; }
         public MainController(MainWindow view)
         {
             this.model = new Model();
@@ -60,7 +59,27 @@ namespace MIDPS_Lab4
             }
 
         }
+    }
+
+    public class ModalController : Controller
+    {
+        public DialogAdd view { get; set; }
+        override public void OnNotification(string eventPath, Object target, params object[] data)
+        {
+            switch (eventPath)
+            {
+                case Notification.AddNewOK:
+                    {
+                        Dictionary<string, string> temp = (Dictionary<string, string>) data.GetValue(0);
+                        AddNewModel mdl = model.addNewConfig();
+                        Singleton.Instance.Insert(mdl.buildObject(temp));
+                    }
+                    break;
+
+            }
+        }
 
 
     }
+
 }
