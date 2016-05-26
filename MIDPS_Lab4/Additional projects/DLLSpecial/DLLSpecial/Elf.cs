@@ -63,9 +63,13 @@ namespace DLLSpecial
         {
             return String.Format("DELETE TOP({0}) FROM Elf;", n);
         }
+        public string deleteOneString(int id)
+        {
+            return String.Format("DELETE FROM Elf WHERE id ='{0}';", id);
+        }
         public string updateFormat()
         {
-            return "UPDATE Elf SET Name = '{1}' WHERE Name = '{0}'";
+            return "UPDATE Elf SET Name = '{1}' WHERE id = '{0}'";
         }
         #endregion
     }

@@ -22,7 +22,7 @@ namespace MIDPS_Lab4
         public string currentPage { get; set; }
         public int selectedID { get; set; }
 
-        private Dictionary<string, bool> shouldHideListDict;
+        private Dictionary<string, bool> shouldHideListDict, shouldUpdateRowsDict;
         private Dictionary<string, string> table1TitleDict, table2TitleDict;
         private Dictionary<string, AddNewModel> addNewConfigDict;
 
@@ -39,6 +39,14 @@ namespace MIDPS_Lab4
                 [MiddleEarth.Elf] = true,
                 [MiddleEarth.Orc] = true,
                 [MiddleEarth.Hobbit] = false
+            };
+            shouldUpdateRowsDict = new Dictionary<string, bool>
+            {
+                [MiddleEarth.Ring] = true,
+                [MiddleEarth.Wizard] = true,
+                [MiddleEarth.Elf] = true,
+                [MiddleEarth.Orc] = false,
+                [MiddleEarth.Hobbit] = true
             };
             table1TitleDict = new Dictionary<string, string>
             {
@@ -71,6 +79,10 @@ namespace MIDPS_Lab4
         {
             return shouldHideListDict[obj];
         }
+        public bool shouldUpdateRows()
+        {
+            return shouldUpdateRowsDict[currentPage];
+        }
         public string table1Title()
         {
             return table1TitleDict[currentPage];
@@ -79,6 +91,7 @@ namespace MIDPS_Lab4
         {
             return table2TitleDict[currentPage];
         }
+        
 
         public AddNewModel addNewConfig()
         {

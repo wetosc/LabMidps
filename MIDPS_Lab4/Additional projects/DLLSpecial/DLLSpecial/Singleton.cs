@@ -11,6 +11,7 @@ namespace DLLSpecial
         string insertString();
         string deleteString(int n);
         string updateFormat();
+        string deleteOneString(int id);
     }
 
     public class Singleton
@@ -91,13 +92,13 @@ namespace DLLSpecial
             return dtRecord;
         }
 
-        public int Insert(SQLObject temp)
+        public int Insert(SQLObject temp, string type)
         {
             connect();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            switch (temp.GetType().ToString())
+            switch (type)
             {
                 case "Ring":
                     {
@@ -160,37 +161,37 @@ namespace DLLSpecial
             return 0;
         }
 
-        //public int deleteOne(Type t)
-        //{
-        //    connect();
+        public int deleteOne(Type t, int id)
+        {
+            connect();
 
-        //    SqlCommand cmd = new SqlCommand();
-        //    SQLObject obj = (SQLObject)Activator.CreateInstance(t);
-        //    cmd.CommandText = obj.deleteString(1);
-        //    cmd.Connection = connection;
-        //    return cmd.ExecuteNonQuery();
-        //}
+            SqlCommand cmd = new SqlCommand();
+            SQLObject obj = (SQLObject)Activator.CreateInstance(t);
+            cmd.CommandText = obj.deleteOneString(id);
+            cmd.Connection = connection;
+            return cmd.ExecuteNonQuery();
+        }
 
-        //public int deleteMultiple(Type t, int n)
-        //{
-        //    connect();
+        public int deleteMultiple(Type t, int n)
+        {
+            connect();
 
-        //    SqlCommand cmd = new SqlCommand();
-        //    SQLObject obj = (SQLObject)Activator.CreateInstance(t);
-        //    cmd.CommandText = obj.deleteString(n);
-        //    cmd.Connection = connection;
-        //    return cmd.ExecuteNonQuery();
-        //}
+            SqlCommand cmd = new SqlCommand();
+            SQLObject obj = (SQLObject)Activator.CreateInstance(t);
+            cmd.CommandText = obj.deleteString(n);
+            cmd.Connection = connection;
+            return cmd.ExecuteNonQuery();
+        }
 
-        //public int update(Type t, string oldName, string newName)
-        //{
-        //    connect();
-        //    SqlCommand cmd = new SqlCommand();
-        //    SQLObject obj = (SQLObject)Activator.CreateInstance(t);
-        //    cmd.CommandText = String.Format(obj.updateFormat(), oldName, newName);
-        //    cmd.Connection = connection;
-        //    return cmd.ExecuteNonQuery();
-        //}
+        public int update(Type t, int id, string newName)
+        {
+            connect();
+            SqlCommand cmd = new SqlCommand();
+            SQLObject obj = (SQLObject)Activator.CreateInstance(t);
+            cmd.CommandText = String.Format(obj.updateFormat(), id, newName);
+            cmd.Connection = connection;
+            return cmd.ExecuteNonQuery();
+        }
 
         //public void read<T>() where T : new()
         //{

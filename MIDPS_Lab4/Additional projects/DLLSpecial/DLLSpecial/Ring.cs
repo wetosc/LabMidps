@@ -58,9 +58,13 @@ namespace DLLSpecial
         {
             return String.Format("DELETE FROM Master2Ring WHERE Ring_ID IN (SELECT TOP {0} Ring_ID  FROM Ring); DELETE TOP({0}) FROM Ring;", n);
         }
+        public string deleteOneString(int id)
+        {
+            return String.Format("DELETE FROM Master2Ring WHERE Ring_ID = '{0}'; DELETE FROM Ring WHERE id = '{0}';", id);
+        }
         public string updateFormat()
         {
-            return "UPDATE Ring SET Name = '{1}' WHERE Name = '{0}'";
+            return "UPDATE Ring SET Name = '{1}' WHERE id = '{0}'";
         }
         #endregion
     }

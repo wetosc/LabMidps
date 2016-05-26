@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace MIDPS_Lab4
         {
             InitializeComponent();
             myController = new MainController(this);
-            myController.OnNotification(Notification.PageChange,this,MiddleEarth.Ring);
+            myController.OnNotification(Notification.PageChange, this, MiddleEarth.Ring);
         }
 
         public void hideList(bool hide)
@@ -82,19 +83,57 @@ namespace MIDPS_Lab4
                 int id = row.Row.Field<int>("id");
                 myController.OnNotification(Notification.RowSelected, this, id);
             }
-            
+
         }
 
         private void newItem(object sender, RoutedEventArgs e)
         {
             DialogAdd dialog = new DialogAdd(myController.model);
-            if (dialog.ShowDialog() == true) { myController.OnNotification(Notification.PageChange, this, myController.model.currentPage); }
-                
+            if (dialog.ShowDialog() == true)
+            {
+                myController.OnNotification(Notification.PageChange, this, myController.model.currentPage);
+            }
         }
 
-        private void Sample2_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
+        private void deleteSingle(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("SAMPLE 2: Closing dialog with parameter: " + (eventArgs.Parameter ?? ""));
+            DataRowView row = dataGrid.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                int id = row.Row.Field<int>("id");
+                myController.OnNotification(Notification.DeleteRow, this, id);
+            }
+        }
+
+        private void deleteMultiple(object sender, RoutedEventArgs e)
+        {
+            List<DataRowView> rows = (List<DataRowView>)((IList)dataGrid.SelectedItems).Cast<DataRowView>().ToList<DataRowView>();
+            if (rows != null)
+            {
+                foreach (DataRowView row in rows)
+                {
+                    int id = row.Row.Field<int>("id");
+                    myController.OnNotification(Notification.DeleteRow, this, id);
+                }
+            }
+        }
+
+        private void update(object sender, RoutedEventArgs e)
+        {
+            if (myController.model.shouldUpdateRows())
+            {
+                DataRowView row = dataGrid.SelectedItem as DataRowView;
+                if (row != null)
+                {
+                    int id = row.Row.Field<int>("id");
+                    myController.OnNotification(Notification.RowSelected, this, id);
+                    DialogUpdate dialog = new DialogUpdate();
+                    if (dialog.ShowDialog() == true)
+                    {
+                        myController.OnNotification(Notification.UpdateRowOk, this, id, dialog.textBox.Text);
+                    }
+                }
+            }
         }
     }
 }

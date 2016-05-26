@@ -44,6 +44,10 @@ namespace DLLSpecial
         {
             return String.Format("DELETE TOP({0}) FROM Orc;", n);
         }
+        public string deleteOneString(int id)
+        {
+            return String.Format("DELETE FROM Orc WHERE id ='{0}';", id);
+        }
         public string updateFormat()
         {
             return "";

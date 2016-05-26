@@ -23,7 +23,7 @@ namespace MIDPS_Lab4
             {
                 ["Name"] = "text",
                 ["Material"] = "text",
-                ["Owner"] = "list"
+                ["Owner"] = "list.multiple"
             };
         }
         override
@@ -101,7 +101,7 @@ namespace MIDPS_Lab4
             {
                 ["Name"] = "text",
                 ["Color"] = "text",
-                ["Ring"] = "list"
+                ["Ring"] = "list.multiple"
             };
         }
         override

@@ -52,7 +52,7 @@
 
         <Label x:Name="label" Content="Table1" Grid.Column="1" HorizontalAlignment="Center" Margin="10,15,0,0" VerticalAlignment="Top" Grid.Row="0"/>
         <DataGrid x:Name="dataGrid" HorizontalAlignment="Stretch" Margin="10,0,10,10" VerticalAlignment="Stretch" 
-                  SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" MouseLeftButtonUp="selectRow1"
+                  SelectionMode="Extended" SelectionUnit="FullRow" CanUserAddRows="False" MouseLeftButtonUp="selectRow1"
                   IsReadOnly="True"
                   Grid.Row="1" Grid.Column="1"/>
         <StackPanel Margin="10,0,0,10" VerticalAlignment="Bottom" Orientation="Horizontal"
@@ -63,15 +63,15 @@
                 <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
             </Button>
             <Button x:Name="button1" Style="{StaticResource MaterialDesignFloatingActionButton}"
-                		HorizontalAlignment="Left" Margin="0,0,16,0" Width="50" Height="50">
+                		HorizontalAlignment="Left" Margin="0,0,16,0" Width="50" Height="50" Click="deleteSingle">
                 <materialDesign:PackIcon Kind="Minus" Height="24" Width="24" />
             </Button>
             <Button x:Name="button2" Style="{StaticResource MaterialDesignFloatingActionButton}"
-                		HorizontalAlignment="Left" Margin="0,0,16,0" Width="50" Height="50">
+                		HorizontalAlignment="Left" Margin="0,0,16,0" Width="50" Height="50" Click="deleteMultiple">
                 <materialDesign:PackIcon Kind="Delete" Height="24" Width="24" />
             </Button>
             <Button x:Name="button3" Style="{StaticResource MaterialDesignFloatingActionButton}"
-                		HorizontalAlignment="Left" Margin="0,0,16,0" Width="50" Height="50">
+                		HorizontalAlignment="Left" Margin="0,0,16,0" Width="50" Height="50" Click="update">
                 <materialDesign:PackIcon Kind="Pencil" Height="24" Width="24" />
             </Button>
         </StackPanel>

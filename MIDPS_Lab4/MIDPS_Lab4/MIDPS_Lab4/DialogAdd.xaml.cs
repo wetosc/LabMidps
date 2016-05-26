@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-//using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,16 +35,19 @@ namespace MIDPS_Lab4
             int i = 0;
             foreach (string key in currentConfig.Keys)
             {
-                TextBox txt = new TextBox(); txt.HorizontalAlignment = HorizontalAlignment.Stretch;
-                txt.Text = key; txt.GotFocus += textBox_GotFocus; txt.LostFocus += Txt_LostFocus;
+                if (currentConfig[key] == "text" || currentConfig[key] == "number" || currentConfig[key] == "float")
+                {
+                    TextBox txt = new TextBox(); txt.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    txt.Text = key; txt.GotFocus += textBox_GotFocus; txt.LostFocus += Txt_LostFocus;
 
-                RowDefinition row = new RowDefinition(); row.Height = new GridLength(1, GridUnitType.Star);
-                grid.RowDefinitions.Add(row);
+                    RowDefinition row = new RowDefinition(); row.Height = new GridLength(1, GridUnitType.Star);
+                    grid.RowDefinitions.Add(row);
 
-                Grid.SetRow(txt, i);
-                grid.Children.Add(txt);
-                fields.Add(key, txt);
-                i++;
+                    Grid.SetRow(txt, i);
+                    grid.Children.Add(txt);
+                    fields.Add(key, txt);
+                    i++;
+                }
             }
             Grid.SetRow(buttonParent, i);
             dirtList = Enumerable.Repeat(false, i).ToList(); ;
@@ -82,13 +84,13 @@ namespace MIDPS_Lab4
         {
             TextBox temp = sender as TextBox;
             string key = fields.FirstOrDefault(x => x.Value == temp).Key;
-            bool valid = true;
+            //bool valid = true;
             if (temp.Text.Trim().Length == 0)
             {
                 temp.Text = key;
                 int pos = fields.Values.ToList().IndexOf(temp);
                 dirtList[pos] = false;
-                valid = false;
+                //valid = false;
             }
             //else
             //{

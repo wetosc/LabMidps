@@ -19,3 +19,5 @@ C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\ob
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\MIDPS_Lab4.pdb
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\DialogAdd.g.cs
 C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\DialogAdd.baml
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\DialogUpdate.g.cs
+C:\Users\Eugenius\Documents\Repository\MIDPS\MIDPS_Lab4\MIDPS_Lab4\MIDPS_Lab4\obj\Release\DialogUpdate.baml

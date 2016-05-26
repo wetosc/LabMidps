@@ -51,9 +51,13 @@ namespace DLLSpecial
         {
             return String.Format("DELETE FROM Master2Ring WHERE Master_ID IN (SELECT TOP {0} Master_ID FROM Wizard); UPDATE Orc SET Master_ID = NULL WHERE Master_ID IN (SELECT TOP {0} Master_ID FROM Wizard); DELETE TOP({0}) FROM Wizard;", n);
         }
+        public string deleteOneString(int id)
+        {
+            return String.Format("DELETE FROM Master2Ring WHERE Master_ID = '{0}'; UPDATE Orc SET Master_ID = NULL WHERE Master_ID = '{0}'; DELETE FROM Wizard WHERE id = '{0}';", id);
+        }
         public string updateFormat()
         {
-            return "UPDATE Wizard SET Name = '{1}' WHERE Name = '{0}'";
+            return "UPDATE Wizard SET Name = '{1}' WHERE id = '{0}'";
         }
         #endregion
 

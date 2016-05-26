@@ -46,9 +46,13 @@ namespace DLLSpecial
         {
             return String.Format("UPDATE Elf SET Hobbit_Friend = NULL WHERE Hobbit_Friend IN (SELECT TOP {0} id FROM Hobbit); UPDATE Wizard SET Hobbit_Friend = NULL WHERE Hobbit_Friend IN (SELECT TOP {0} id FROM Hobbit); DELETE TOP({0}) FROM Hobbit;", n);
         }
+        public string deleteOneString(int id)
+        {
+            return String.Format("UPDATE Elf SET Hobbit_Friend = NULL WHERE Hobbit_Friend = '{0}'; UPDATE Wizard SET Hobbit_Friend = NULL WHERE Hobbit_Friend = '{0}'; DELETE FROM Hobbit WHERE id = '{0}';", id);
+        }
         public string updateFormat()
         {
-            return "UPDATE Hobbit SET Name = '{1}' WHERE Name = '{0}'";
+            return "UPDATE Hobbit SET Name = '{1}' WHERE id = '{0}'";
         }
         #endregion
     }

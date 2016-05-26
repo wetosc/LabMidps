@@ -56,8 +56,29 @@ namespace MIDPS_Lab4
                         }
                     }
                     break;
+                case Notification.DeleteRow:
+                    {
+                        int id = (int)data.GetValue(0);
+                        Singleton.Instance.deleteOne(model.typeFromString(model.currentPage),id);
+                        view.setData1(Singleton.Instance.getData(model.typeFromString(model.currentPage)));
+                    }
+                    break;
+                case Notification.DeleteMultipleRows:
+                    {
+                        int nr = (int)data.GetValue(0);
+                        Singleton.Instance.deleteMultiple(model.typeFromString(model.currentPage), nr);
+                        view.setData1(Singleton.Instance.getData(model.typeFromString(model.currentPage)));
+                    }
+                    break;
+                case Notification.UpdateRowOk:
+                    {
+                        int id = (int)data.GetValue(0);
+                        string newName = (string)data.GetValue(1);
+                        Singleton.Instance.update(model.typeFromString(model.currentPage), id, newName);
+                        view.setData1(Singleton.Instance.getData(model.typeFromString(model.currentPage)));
+                    }
+                    break;
             }
-
         }
     }
 
@@ -72,14 +93,19 @@ namespace MIDPS_Lab4
                     {
                         Dictionary<string, string> temp = (Dictionary<string, string>) data.GetValue(0);
                         AddNewModel mdl = model.addNewConfig();
-                        Singleton.Instance.Insert(mdl.buildObject(temp));
+                        Singleton.Instance.Insert(mdl.buildObject(temp), model.currentPage);
                     }
                     break;
 
             }
         }
-
-
     }
 
+    public class ModalControllerUpdate : Controller
+    {
+        public DialogUpdate view { get; set; }
+        override public void OnNotification(string eventPath, Object target, params object[] data)
+        {
+        }
+    }
 }
