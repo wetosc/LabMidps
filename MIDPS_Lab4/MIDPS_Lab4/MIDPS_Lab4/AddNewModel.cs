@@ -75,7 +75,7 @@ namespace MIDPS_Lab4
             {
                 ["Name"] = "text",
                 ["Category"] = "text",
-                ["Friend"] = "number"
+                ["Friend"] = "list.single"
             };
         }
         override

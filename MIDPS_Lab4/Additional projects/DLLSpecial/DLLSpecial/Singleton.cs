@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections.Generic;
 
 namespace DLLSpecial
 {
@@ -192,6 +193,40 @@ namespace DLLSpecial
             cmd.Connection = connection;
             return cmd.ExecuteNonQuery();
         }
+
+        //public List<int> getAllWizards()
+        //{
+        //    connect();
+        //    List<int> result = new List<int>();
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.CommandText = "SELECT id FROM Wizard;";
+        //    cmd.Connection = connection;
+        //    using (SqlDataReader reader = cmd.ExecuteReader())
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            result.Add(reader.GetInt32(0));
+        //        }
+        //    }
+        //    return result;
+        //}
+
+        //public List<int> getAllRings()
+        //{
+        //    connect();
+        //    List<int> result = new List<int>();
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.CommandText = "SELECT id FROM Ring;";
+        //    cmd.Connection = connection;
+        //    using (SqlDataReader reader = cmd.ExecuteReader())
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            result.Add(reader.GetInt32(0));
+        //        }
+        //    }
+        //    return result;
+        //}
 
         //public void read<T>() where T : new()
         //{

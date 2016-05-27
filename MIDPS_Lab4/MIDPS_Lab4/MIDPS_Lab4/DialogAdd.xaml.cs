@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DLLSpecial;
+using System.Data;
+using System.Collections;
 
 namespace MIDPS_Lab4
 {
@@ -35,18 +38,49 @@ namespace MIDPS_Lab4
             int i = 0;
             foreach (string key in currentConfig.Keys)
             {
-                if (currentConfig[key] == "text" || currentConfig[key] == "number" || currentConfig[key] == "float")
+                switch (currentConfig[key])
                 {
-                    TextBox txt = new TextBox(); txt.HorizontalAlignment = HorizontalAlignment.Stretch;
-                    txt.Text = key; txt.GotFocus += textBox_GotFocus; txt.LostFocus += Txt_LostFocus;
+                    case "text":
+                    case "number":
+                    case "float":
+                        {
+                            TextBox txt = new TextBox(); txt.HorizontalAlignment = HorizontalAlignment.Stretch;
+                            txt.Text = key; txt.GotFocus += textBox_GotFocus; txt.LostFocus += Txt_LostFocus;
 
-                    RowDefinition row = new RowDefinition(); row.Height = new GridLength(1, GridUnitType.Star);
-                    grid.RowDefinitions.Add(row);
+                            RowDefinition row = new RowDefinition(); row.Height = new GridLength(1, GridUnitType.Star);
+                            grid.RowDefinitions.Add(row);
 
-                    Grid.SetRow(txt, i);
-                    grid.Children.Add(txt);
-                    fields.Add(key, txt);
-                    i++;
+                            Grid.SetRow(txt, i);
+                            grid.Children.Add(txt);
+                            fields.Add(key, txt);
+                            i++;
+                        }
+                        break;
+                    case "list.multiple":
+                        {
+                            Grid.SetRow(dataGrid, i);
+                            i++;
+                            dataGrid.Visibility = Visibility.Visible;
+                            dataGrid.SelectionMode = DataGridSelectionMode.Extended;
+                            if (model.currentPage == MiddleEarth.Wizard)
+                            {
+                                dataGrid.ItemsSource = Singleton.Instance.getData(model.typeFromString(MiddleEarth.Ring)).Tables[0].DefaultView;
+                            }
+                            else if (model.currentPage == MiddleEarth.Ring)
+                            {
+                                dataGrid.ItemsSource = Singleton.Instance.getData(model.typeFromString(MiddleEarth.Wizard)).Tables[0].DefaultView;
+                            }
+                        }
+                        break;
+                    case "list.single":
+                        {
+                            Grid.SetRow(dataGrid, i);
+                            i++;
+                            dataGrid.Visibility = Visibility.Visible;
+                            dataGrid.ItemsSource = Singleton.Instance.getData(model.typeFromString(MiddleEarth.Hobbit)).Tables[0].DefaultView;
+                            dataGrid.SelectionMode = DataGridSelectionMode.Single;
+                        }
+                        break;
                 }
             }
             Grid.SetRow(buttonParent, i);
@@ -64,6 +98,25 @@ namespace MIDPS_Lab4
             foreach (string key in fields.Keys)
             {
                 result.Add(key, fields[key].Text);
+            }
+            if (dataGrid.Visibility == Visibility.Visible)
+            {
+                if (dataGrid.SelectionMode == DataGridSelectionMode.Extended) {
+                    var myKey = currentConfig.FirstOrDefault(x => x.Value == "list.multiple").Key;
+                    List<DataRowView> rows = (List<DataRowView>)((IList)dataGrid.SelectedItems).Cast<DataRowView>().ToList<DataRowView>();
+                    string ids = "";
+                    foreach (DataRowView row in rows)
+                    {
+                        ids += row.Row.Field<int>("id") + ",";
+                    }
+                    result.Add(myKey, ids);
+                }
+                else if (dataGrid.SelectionMode == DataGridSelectionMode.Single)
+                {
+                    var myKey = currentConfig.FirstOrDefault(x => x.Value == "list.single").Key;
+                    string ids = (dataGrid.SelectedItem as DataRowView).Row.Field<int>("id").ToString();
+                    result.Add(myKey, ids);
+                }
             }
             controller.OnNotification(Notification.AddNewOK, this, result);
         }
