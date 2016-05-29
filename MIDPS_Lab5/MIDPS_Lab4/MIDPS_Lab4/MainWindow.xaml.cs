@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Data;
 using System.Diagnostics;
 using MaterialDesignThemes.Wpf;
+using System.IO;
 
 namespace MIDPS_Lab4
 {
@@ -37,6 +38,7 @@ namespace MIDPS_Lab4
         {
             if (hide) { dataGrid2.Visibility = Visibility.Hidden; label2.Visibility = Visibility.Hidden; }
             else { dataGrid2.Visibility = Visibility.Visible; label2.Visibility = Visibility.Visible; }
+            image.Visibility = Visibility.Hidden;
         }
 
         public void setData1(DataSet data)
@@ -52,6 +54,12 @@ namespace MIDPS_Lab4
             }
             dataGrid2.ItemsSource = data.Tables[0].DefaultView;
             label2.Content = myController.model.table2Title();
+        }
+
+        public void showPicture(byte[] data)
+        {
+            image.Source = LoadImage(data);
+            image.Visibility = Visibility.Visible;
         }
 
         private void Ring_Page(object sender, RoutedEventArgs e)
@@ -134,6 +142,24 @@ namespace MIDPS_Lab4
                     }
                 }
             }
+        }
+
+        private static BitmapImage LoadImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0) return null;
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageData))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            image.Freeze();
+            return image;
         }
     }
 }

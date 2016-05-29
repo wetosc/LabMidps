@@ -26,6 +26,7 @@ CREATE TABLE Elf (
   Name VARCHAR(256) NULL DEFAULT NULL,
   Category VARCHAR(256) NULL DEFAULT NULL,
   Hobbit_Friend INTEGER NULL DEFAULT NULL,
+  Image image NULL,
   PRIMARY KEY (id),
   CONSTRAINT  Hobbit_Friend_FK2 FOREIGN KEY (Hobbit_Friend) REFERENCES Hobbit (id)
 );
@@ -89,7 +90,6 @@ ALTER TABLE Orc ADD CONSTRAINT  Master_ID_FK2 FOREIGN KEY (Master_ID) REFERENCES
 /*5*/INSERT INTO Elf (Name,Category,Hobbit_Friend) VALUES ('Santiras','Forest',2);
 /*5*/INSERT INTO Elf (Name,Category,Hobbit_Friend) VALUES ('Oripon','Sea',2);
 /*6*/INSERT INTO Orc (Power,Master_ID) VALUES (5,2);
-
 -------------------------
 -- Show table values ----
 -------------------------

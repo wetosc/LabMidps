@@ -54,6 +54,12 @@ namespace MIDPS_Lab4
                             model.selectedID = id;
                             view.setData2(Singleton.Instance.getData2(model.typeFromString(model.currentPage), id));
                         }
+                        if (model.shouldShowImage())
+                        {
+                            int id = (int)data.GetValue(0);
+                            model.selectedID = id;
+                            view.showPicture(Singleton.Instance.getImage(id));
+                        }
                     }
                     break;
                 case Notification.DeleteRow:
@@ -91,7 +97,7 @@ namespace MIDPS_Lab4
             {
                 case Notification.AddNewOK:
                     {
-                        Dictionary<string, string> temp = (Dictionary<string, string>) data.GetValue(0);
+                        Dictionary<string, object> temp = (Dictionary<string, object>) data.GetValue(0);
                         AddNewModel mdl = model.addNewConfig();
                         Singleton.Instance.Insert(mdl.buildObject(temp), model.currentPage);
                     }

@@ -12,7 +12,7 @@ namespace MIDPS_Lab4
             viewDescription = new Dictionary<string, string>();
         }
 
-        public abstract SQLObject buildObject(Dictionary<string, string> info);
+        public abstract SQLObject buildObject(Dictionary<string, object> info);
     }
 
     public class AddNewRing : AddNewModel
@@ -27,12 +27,12 @@ namespace MIDPS_Lab4
             };
         }
         override
-        public SQLObject buildObject(Dictionary<string, string> info)
+        public SQLObject buildObject(Dictionary<string, object> info)
         {
             Ring temp = new Ring();
-            temp.Name = info["Name"];
-            temp.Material = info["Material"];
-            List<string> ids = info["Owner"].Split(',').ToList<string>();
+            temp.Name = (string)info["Name"];
+            temp.Material = (string)info["Material"];
+            List<string> ids = (info["Owner"] as string).Split(',').ToList<string>();
             List<uint> owners = new List<uint>();
             uint nrtmp = 0;
             foreach (string id in ids)
@@ -58,11 +58,11 @@ namespace MIDPS_Lab4
             };
         }
         override
-        public SQLObject buildObject(Dictionary<string, string> info)
+        public SQLObject buildObject(Dictionary<string, object> info)
         {
             Hobbit temp = new Hobbit();
-            temp.Name = info["Name"];
-            temp.Region = info["Region"];
+            temp.Name = (string)info["Name"];
+            temp.Region = (string)info["Region"];
             return temp;
         }
     }
@@ -75,19 +75,26 @@ namespace MIDPS_Lab4
             {
                 ["Name"] = "text",
                 ["Category"] = "text",
-                ["Friend"] = "list.single"
+                ["Friend"] = "list.single",
+                ["Image"] = "image"
             };
         }
         override
-        public SQLObject buildObject(Dictionary<string, string> info)
+        public SQLObject buildObject(Dictionary<string, object> info)
         {
             Elf temp = new Elf();
-            temp.Name = info["Name"];
-            temp.Category = info["Category"];
-            uint nrtmp = 0;
-            if (uint.TryParse(info["Friend"].Trim(), out nrtmp))
+            try
             {
+                temp.Name = (string)info["Name"];
+                temp.Category = (string)info["Category"];
+                uint nrtmp = 0;
+                uint.TryParse((info["Friend"] as string).Trim(), out nrtmp);
                 temp.HobbitFriend = nrtmp;
+                temp.imageData = (byte[])info["Image"];
+            }
+            catch (KeyNotFoundException e)
+            {
+                Console.WriteLine("Image not found, but don't worry, that's not a problem.\n" + e.Message);
             }
             return temp;
         }
@@ -105,12 +112,12 @@ namespace MIDPS_Lab4
             };
         }
         override
-        public SQLObject buildObject(Dictionary<string, string> info)
+        public SQLObject buildObject(Dictionary<string, object> info)
         {
             Wizard temp = new Wizard();
-            temp.Name = info["Name"];
-            temp.Color = info["Color"];
-            List<string> ids = info["Ring"].Split(',').ToList<string>();
+            temp.Name = (string)info["Name"];
+            temp.Color = (string)info["Color"];
+            List<string> ids = (info["Ring"] as string).Split(',').ToList<string>();
             List<uint> rings = new List<uint>();
             uint nrtmp = 0;
             foreach (string id in ids)
@@ -135,11 +142,11 @@ namespace MIDPS_Lab4
             };
         }
         override
-        public SQLObject buildObject(Dictionary<string, string> info)
+        public SQLObject buildObject(Dictionary<string, object> info)
         {
             Orc temp = new Orc();
             float ptemp = 0;
-            if (float.TryParse(info["Power"], out ptemp))
+            if (float.TryParse(info["Power"] as string, out ptemp))
             {
                 temp.Power = ptemp;
             }

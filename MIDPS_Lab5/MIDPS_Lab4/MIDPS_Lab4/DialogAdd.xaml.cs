@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,6 +12,8 @@ using System.Windows.Shapes;
 using DLLSpecial;
 using System.Data;
 using System.Collections;
+using Microsoft.Win32;
+using System.IO;
 
 namespace MIDPS_Lab4
 {
@@ -27,6 +27,7 @@ namespace MIDPS_Lab4
         private Dictionary<string, TextBox> fields;
         private List<bool> dirtList;
         private Dictionary<string, string> currentConfig;
+        private Button openDialog;
         public DialogAdd(Model model)
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace MIDPS_Lab4
 
             fields = new Dictionary<string, TextBox>();
             int i = 0;
+            dataGrid.Visibility = Visibility.Hidden;
             foreach (string key in currentConfig.Keys)
             {
                 switch (currentConfig[key])
@@ -58,6 +60,7 @@ namespace MIDPS_Lab4
                         break;
                     case "list.multiple":
                         {
+                            dataGrid.Margin = new Thickness(0, 10, 0, 0);
                             Grid.SetRow(dataGrid, i);
                             i++;
                             dataGrid.Visibility = Visibility.Visible;
@@ -74,11 +77,24 @@ namespace MIDPS_Lab4
                         break;
                     case "list.single":
                         {
+                            dataGrid.Margin = new Thickness(0, 10, 0, 0);
                             Grid.SetRow(dataGrid, i);
                             i++;
                             dataGrid.Visibility = Visibility.Visible;
                             dataGrid.ItemsSource = Singleton.Instance.getData(model.typeFromString(MiddleEarth.Hobbit)).Tables[0].DefaultView;
                             dataGrid.SelectionMode = DataGridSelectionMode.Single;
+                        }
+                        break;
+                    case "image":
+                        {
+                            openDialog = new Button(); openDialog.Click += openDialog_Clik; openDialog.Content = "Select Image"; openDialog.Margin = new Thickness(10, 10, 10, 10);
+
+                            RowDefinition row = new RowDefinition(); row.Height = new GridLength(1, GridUnitType.Star);
+                            grid.RowDefinitions.Add(row);
+
+                            Grid.SetRow(openDialog, i);
+                            grid.Children.Add(openDialog);
+                            i++;
                         }
                         break;
                 }
@@ -94,14 +110,15 @@ namespace MIDPS_Lab4
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            Dictionary<string, string> result = new Dictionary<string, string>();
+            Dictionary<string, object> result = new Dictionary<string, object>();
             foreach (string key in fields.Keys)
             {
                 result.Add(key, fields[key].Text);
             }
             if (dataGrid.Visibility == Visibility.Visible)
             {
-                if (dataGrid.SelectionMode == DataGridSelectionMode.Extended) {
+                if (dataGrid.SelectionMode == DataGridSelectionMode.Extended)
+                {
                     var myKey = currentConfig.FirstOrDefault(x => x.Value == "list.multiple").Key;
                     List<DataRowView> rows = (List<DataRowView>)((IList)dataGrid.SelectedItems).Cast<DataRowView>().ToList<DataRowView>();
                     string ids = "";
@@ -114,11 +131,40 @@ namespace MIDPS_Lab4
                 else if (dataGrid.SelectionMode == DataGridSelectionMode.Single)
                 {
                     var myKey = currentConfig.FirstOrDefault(x => x.Value == "list.single").Key;
-                    string ids = (dataGrid.SelectedItem as DataRowView).Row.Field<int>("id").ToString();
+                    string ids = "";
+                    if (dataGrid.SelectedIndex != -1) { ids = (dataGrid.SelectedItem as DataRowView).Row.Field<int>("id").ToString(); }
                     result.Add(myKey, ids);
                 }
             }
+            if (openDialog != null)
+            {
+                if (!(openDialog.Content as string).Equals("Select Image"))
+                {
+                    string filePath = (string)openDialog.Content;
+                    FileInfo info = new FileInfo(filePath);
+                    byte[] data = new byte[info.Length];
+                    FileStream fs = new FileStream(filePath, FileMode.Open,
+                              FileAccess.Read, FileShare.Read);
+                    fs.Read(data, 0, (int)info.Length);
+                    fs.Close();
+
+                    var myKey = currentConfig.FirstOrDefault(x => x.Value == "image").Key;
+                    result.Add(myKey, data);
+                }
+            }
             controller.OnNotification(Notification.AddNewOK, this, result);
+        }
+
+
+
+        private void openDialog_Clik(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog(); dialog.Title = "Select a profile pic";
+            dialog.Filter = "JPEG Images|*.jpg|GIF Images|*.gif|BITMAPS|*.bmp|PNG Images|*.png";
+            if (dialog.ShowDialog() == true)
+            {
+                openDialog.Content = dialog.FileName;
+            }
         }
 
 
@@ -137,55 +183,12 @@ namespace MIDPS_Lab4
         {
             TextBox temp = sender as TextBox;
             string key = fields.FirstOrDefault(x => x.Value == temp).Key;
-            //bool valid = true;
             if (temp.Text.Trim().Length == 0)
             {
                 temp.Text = key;
                 int pos = fields.Values.ToList().IndexOf(temp);
                 dirtList[pos] = false;
-                //valid = false;
             }
-            //else
-            //{
-            //    switch (key)
-            //    {
-            //        case "list":
-            //            {
-            //                uint t;
-            //                foreach (string id in temp.Text.Split(','))
-            //                {
-            //                    if (!uint.TryParse(id.Trim(), out t))
-            //                    {
-            //                        valid = false;
-            //                        break;
-            //                    }
-            //                }
-            //            }
-            //            break;
-            //        case "number":
-            //            {
-            //                uint t;
-            //                valid = uint.TryParse(temp.Text, out t);
-            //            }
-            //            break;
-            //        case "float":
-            //            {
-            //                float t;
-            //                valid = float.TryParse(temp.Text, out t);
-            //            }
-            //            break;
-            //    }
-            //}
-
-            //if (valid)
-            //{
-            //    temp.BorderBrush = Brushes.White;
-            //}
-            //else
-            //{
-            //    temp.BorderBrush = Brushes.Red;
-            //}
-            //btnDialogOk.IsEnabled = valid;
         }
     }
 }

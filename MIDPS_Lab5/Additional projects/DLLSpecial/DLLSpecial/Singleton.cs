@@ -93,6 +93,18 @@ namespace DLLSpecial
             return dtRecord;
         }
 
+        public byte[] getImage(int id)
+        {
+            connect();
+
+            SqlCommand sqlCmd = new SqlCommand();
+            sqlCmd.Connection = connection;
+            sqlCmd.CommandText = String.Format("SELECT Image from Elf WHERE id = '{0}'", id);
+            object data = sqlCmd.ExecuteScalar();
+
+            return (data != null) ? (data as byte[]) : null;
+        }
+
         public int Insert(SQLObject temp, string type)
         {
             connect();
@@ -142,14 +154,20 @@ namespace DLLSpecial
                 case "Elf":
                     {
                         cmd.CommandText = ((Elf)temp).verifyHobbit();
-                        if ((int)cmd.ExecuteScalar() > 0)
+                        if ( cmd.CommandText.Length>0 && (int)cmd.ExecuteScalar() > 0)
                         {
                             cmd.CommandText = ((Elf)temp).insertString();
+                            cmd.Parameters.Add("@Image", SqlDbType.Image);
+                            cmd.Parameters["@Image"].Value = (temp as Elf).imageData;
+                            if ((temp as Elf).imageData == null) cmd.Parameters["@Image"].Value = DBNull.Value;
                             return cmd.ExecuteNonQuery();
                         }
                         else
                         {
-                            cmd.CommandText = temp.insertString();
+                            cmd.CommandText = (temp as Elf).insertWithoutFriendString();
+                            cmd.Parameters.Add("@Image", SqlDbType.Image);
+                            cmd.Parameters["@Image"].Value = (temp as Elf).imageData;
+                            if ((temp as Elf).imageData == null) cmd.Parameters["@Image"].Value = DBNull.Value;
                             return cmd.ExecuteNonQuery();
                         }
                         break;
