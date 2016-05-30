@@ -212,161 +212,18 @@ namespace DLLSpecial
             return cmd.ExecuteNonQuery();
         }
 
-        //public List<int> getAllWizards()
-        //{
-        //    connect();
-        //    List<int> result = new List<int>();
-        //    SqlCommand cmd = new SqlCommand();
-        //    cmd.CommandText = "SELECT id FROM Wizard;";
-        //    cmd.Connection = connection;
-        //    using (SqlDataReader reader = cmd.ExecuteReader())
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            result.Add(reader.GetInt32(0));
-        //        }
-        //    }
-        //    return result;
-        //}
+        public int updateImage(int id, byte[] data)
+        {
+            connect();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = String.Format("UPDATE Elf SET Image = @Image WHERE id = '{0}'",id);
+            cmd.Connection = connection;
+            cmd.Parameters.Add("@Image", SqlDbType.Image);
+            cmd.Parameters["@Image"].Value = data;
+            if (data == null) cmd.Parameters["@Image"].Value = DBNull.Value;
+            return cmd.ExecuteNonQuery();
+        }
 
-        //public List<int> getAllRings()
-        //{
-        //    connect();
-        //    List<int> result = new List<int>();
-        //    SqlCommand cmd = new SqlCommand();
-        //    cmd.CommandText = "SELECT id FROM Ring;";
-        //    cmd.Connection = connection;
-        //    using (SqlDataReader reader = cmd.ExecuteReader())
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            result.Add(reader.GetInt32(0));
-        //        }
-        //    }
-        //    return result;
-        //}
-
-        //public void read<T>() where T : new()
-        //{
-        //    connect();
-
-        //    string query = "";
-        //    SQLObject obj = (SQLObject)new T();
-        //    query = obj.sortString().Split(new[] { "ORDER" }, StringSplitOptions.None)[0];
-        //    SqlCommand command = new SqlCommand(query, connection);
-        //    using (SqlDataReader reader = command.ExecuteReader())
-        //    {
-        //        for (int i = 0; i < reader.FieldCount; i++)
-        //        {
-        //            Console.Write(String.Format("  {0,-10} ", reader.GetName(i)));
-        //        }
-        //        Console.WriteLine(); Console.WriteLine();
-
-        //        while (reader.Read())
-        //        {
-        //            for (int i = 0; i < reader.FieldCount; i++)
-        //            {
-        //                Console.Write(String.Format("  {0,-10} ", reader.GetValue(i).ToString()));
-        //            }
-        //            Console.WriteLine();
-        //        }
-        //        reader.Close();
-        //    }
-        //    connection.Close();
-        //}
-
-        //public void readSpecial(int cas, int id)
-        //{
-        //    connect();
-
-        //    string query = "";
-        //    switch (cas)
-        //    {
-        //        case 0:
-        //            query = String.Format("SELECT * FROM Ring WHERE id IN (SELECT Ring_ID FROM Master2Ring WHERE Master_ID = '{0}');", id);
-        //            break;
-        //        case 1:
-        //            query = String.Format("SELECT * FROM Wizard WHERE id IN (SELECT Master_ID FROM Master2Ring WHERE Ring_ID = '{0}');", id);
-        //            break;
-        //        case 2:
-        //            query = String.Format("SELECT * FROM Wizard WHERE Hobbit_Friend = '{0}'; SELECT * FROM Elf WHERE Hobbit_Friend = '{0}'", id);
-        //            break;
-        //    }
-
-
-        //    if (cas == 2)
-        //    {
-        //        SqlCommand command = new SqlCommand(query.Split(';')[0], connection);
-        //        Console.WriteLine();
-        //        Console.WriteLine("----------   Wizard Friends ----------");
-        //        Console.WriteLine();
-        //        using (SqlDataReader reader = command.ExecuteReader())
-        //        {
-        //            for (int i = 0; i < reader.FieldCount; i++)
-        //            {
-        //                Console.Write(String.Format("  {0,-10} ", reader.GetName(i)));
-        //            }
-        //            Console.WriteLine(); Console.WriteLine();
-
-        //            while (reader.Read())
-        //            {
-        //                for (int i = 0; i < reader.FieldCount; i++)
-        //                {
-        //                    Console.Write(String.Format("  {0,-10} ", reader.GetValue(i).ToString()));
-        //                }
-        //                Console.WriteLine();
-        //            }
-        //            reader.Close();
-        //        }
-        //        command = new SqlCommand(query.Split(';')[1], connection);
-        //        Console.WriteLine();
-        //        Console.WriteLine("----------   Elf Friends ----------");
-        //        Console.WriteLine();
-        //        using (SqlDataReader reader = command.ExecuteReader())
-        //        {
-        //            for (int i = 0; i < reader.FieldCount; i++)
-        //            {
-        //                Console.Write(String.Format("  {0,-10} ", reader.GetName(i)));
-        //            }
-        //            Console.WriteLine(); Console.WriteLine();
-
-        //            while (reader.Read())
-        //            {
-        //                for (int i = 0; i < reader.FieldCount; i++)
-        //                {
-        //                    Console.Write(String.Format("  {0,-10} ", reader.GetValue(i).ToString()));
-        //                }
-        //                Console.WriteLine();
-        //            }
-        //            reader.Close();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        SqlCommand command = new SqlCommand(query, connection);
-
-        //        using (SqlDataReader reader = command.ExecuteReader())
-        //        {
-        //            for (int i = 0; i < reader.FieldCount; i++)
-        //            {
-        //                Console.Write(String.Format("  {0,-10} ", reader.GetName(i)));
-        //            }
-        //            Console.WriteLine(); Console.WriteLine();
-
-        //            while (reader.Read())
-        //            {
-        //                for (int i = 0; i < reader.FieldCount; i++)
-        //                {
-        //                    Console.Write(String.Format("  {0,-10} ", reader.GetValue(i).ToString()));
-        //                }
-        //                Console.WriteLine();
-        //            }
-        //            reader.Close();
-        //        }
-        //    }
-        //    connection.Close();
-
-        //}
 
     }
 }

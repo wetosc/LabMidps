@@ -136,9 +136,13 @@ namespace MIDPS_Lab4
                     int id = row.Row.Field<int>("id");
                     myController.OnNotification(Notification.RowSelected, this, id);
                     DialogUpdate dialog = new DialogUpdate();
+                    dialog.showImageUpdate(myController.model.shouldShowImage());
                     if (dialog.ShowDialog() == true)
                     {
                         myController.OnNotification(Notification.UpdateRowOk, this, id, dialog.textBox.Text);
+                        if (dialog.hasImage) {
+                            myController.OnNotification(Notification.UpdateImage, this, id, dialog.imageUpdate.Content);
+                        }
                     }
                 }
             }

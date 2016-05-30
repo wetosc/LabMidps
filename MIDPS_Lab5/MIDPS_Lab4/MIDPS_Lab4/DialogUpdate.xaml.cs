@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,14 @@ namespace MIDPS_Lab4
     public partial class DialogUpdate : Window
     {
         public ModalControllerUpdate controller;
+        public bool hasImage;
         private bool dirtyBit;
         public DialogUpdate()
         {
             InitializeComponent();
             controller = new ModalControllerUpdate();
             dirtyBit = false;
+            hasImage = false;
         }
 
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
@@ -50,6 +53,22 @@ namespace MIDPS_Lab4
                 textBox.Text = "Name";
                 dirtyBit = false;
             }
+        }
+
+        private void imageUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog(); dialog.Title = "Select a profile pic";
+            dialog.Filter = "JPEG Images|*.jpg|GIF Images|*.gif|BITMAPS|*.bmp|PNG Images|*.png";
+            if (dialog.ShowDialog() == true)
+            {
+                imageUpdate.Content = dialog.FileName;
+                hasImage = true;
+            }
+        }
+
+        internal void showImageUpdate(bool v)
+        {
+            imageUpdate.Visibility = v ? Visibility.Visible : Visibility.Hidden;
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using DLLSpecial;
+using System.IO;
+
 namespace MIDPS_Lab4
 {
     public abstract class Controller
@@ -82,6 +84,19 @@ namespace MIDPS_Lab4
                         string newName = (string)data.GetValue(1);
                         Singleton.Instance.update(model.typeFromString(model.currentPage), id, newName);
                         view.setData1(Singleton.Instance.getData(model.typeFromString(model.currentPage)));
+                    }
+                    break;
+                case Notification.UpdateImage:
+                    {
+                        int id = (int)data.GetValue(0);
+                        string filePath = (string)data.GetValue(1);
+                        FileInfo info = new FileInfo(filePath);
+                        byte[] dataBytes = new byte[info.Length];
+                        FileStream fs = new FileStream(filePath, FileMode.Open,
+                                  FileAccess.Read, FileShare.Read);
+                        fs.Read(dataBytes, 0, (int)info.Length);
+                        fs.Close();
+                        Singleton.Instance.updateImage(id,dataBytes);
                     }
                     break;
             }
