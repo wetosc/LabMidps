@@ -19,12 +19,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-
-        <!--<Label Name="label1" Grid.Row="0" HorizontalAlignment="Center">Question:</Label>
-        <TextBox Name="textBox1" Grid.Row="0" HorizontalAlignment="Stretch" GotFocus="textBox_GotFocus">Answer</TextBox>-->
-
-        
-        
         <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0" Name="buttonParent">
             <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="60" Margin="0,0,10,0">_Ok</Button>
             <Button IsCancel="True" MinWidth="60">_Cancel</Button>
