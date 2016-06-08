@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DLLSpecial">
-      <HintPath>..\..\Additional projects\DLLSpecial\DLLSpecial\bin\Release\DLLSpecial.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Additional projects\DLLSpecial\DLLSpecial\DLLSpecial.csproj">
+      <Project>{16ef4b07-ce33-4edd-a259-c3ae791e98b3}</Project>
+      <Name>DLLSpecial</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
