@@ -25,7 +25,7 @@ SELECT * FROM Users;
 Delete Users;
 DBCC CHECKIDENT (Users, RESEED, 0); --(if you delete something and want to restart identity) 
 
-
+SELECT *; IN (SELECT TABLE_NAME FROM MiddleEarth.INFORMATION_SCHEMA.Tables)
 
 
 use MiddleEarth;

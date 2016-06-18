@@ -126,6 +126,12 @@ namespace MIDPS_Lab5
                         }
                     }
                     break;
+
+                case Notification.SaveXML:
+                    {
+                        Singleton.Instance.saveToXML();
+                    }
+                    break;
             }
         }
     }

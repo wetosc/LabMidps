@@ -2,6 +2,9 @@
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Xml;
+using System.Linq;
 
 namespace DLLSpecial
 {
@@ -257,5 +260,46 @@ namespace DLLSpecial
             }
         }
 
+        public void saveToXML()
+        {
+            connect();
+
+            string tempFileName = "temp.xml", finalFileName = "final.xml";
+            List<SQLObject> objs = new List<SQLObject> { new Elf(), new Hobbit(), new Wizard(), new Orc() };
+            XmlDocument root = new XmlDocument();
+            var parent = root.CreateElement("root");
+
+            foreach (SQLObject obj in objs)
+            {
+                SqlCommand sqlCmd = new SqlCommand(obj.select(), connection);
+                SqlDataAdapter sqlDataAdap = new SqlDataAdapter(sqlCmd);
+                DataSet dtRecord = new DataSet();
+                sqlDataAdap.Fill(dtRecord);
+                dtRecord.WriteXml(tempFileName);
+
+                XmlDocument docTemp = new XmlDocument(); docTemp.Load(tempFileName);
+                XmlNode el = docTemp.SelectSingleNode("/NewDataSet/Table");
+                XmlElement elem = docTemp.CreateElement(obj.GetType().ToString());
+                if (el != null) { elem.AppendChild(el); }
+                XmlNode nod = root.ImportNode(elem, true);
+                parent.AppendChild(nod);
+            }
+            using (SqlCommand sqlCmd = new SqlCommand("use MiddleEarth; SELECT * FROM Master2Ring", connection)) {
+
+                SqlDataAdapter sqlDataAdap = new SqlDataAdapter(sqlCmd);
+                DataSet dtRecord = new DataSet();
+                sqlDataAdap.Fill(dtRecord);
+                dtRecord.WriteXml(tempFileName);
+
+                XmlDocument docTemp = new XmlDocument(); docTemp.Load(tempFileName);
+                XmlNode el = docTemp.SelectSingleNode("/NewDataSet/Table");
+                XmlElement elem = docTemp.CreateElement("DLLSpecial.Master2Ring");
+                if (el != null) { elem.AppendChild(el); }
+                XmlNode nod = root.ImportNode(elem, true);
+                parent.AppendChild(nod);
+            }
+            root.AppendChild(parent);
+            root.Save(finalFileName);
+        }
     }
 }

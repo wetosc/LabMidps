@@ -55,7 +55,7 @@ namespace DLLSpecial
         #region SQLObject
         public string select()
         {
-            return "SELECT * FROM Elf";
+            return "use MiddleEarth; SELECT * FROM Elf";
         }
         public string select2(int id)
         {

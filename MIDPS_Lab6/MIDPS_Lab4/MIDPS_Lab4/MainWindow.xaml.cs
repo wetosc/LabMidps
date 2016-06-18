@@ -184,5 +184,10 @@ namespace MIDPS_Lab5
             image.Freeze();
             return image;
         }
+
+        private void saveToXML(object sender, RoutedEventArgs e)
+        {
+            myController.OnNotification(Notification.SaveXML, this, null);
+        }
     }
 }
