@@ -12,6 +12,7 @@
         public const string UpdateRowOk = "app.action.update";
         public const string AddNewOK = "window.addnew.ok.click";
         public const string SaveXML = "window.menu.XML.save";
+        public const string LoadXML = "window.menu.XML.load";
 
     }
 }

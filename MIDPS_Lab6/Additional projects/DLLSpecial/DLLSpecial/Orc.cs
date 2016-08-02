@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Xml;
 namespace DLLSpecial
 {
-    public class Orc : IComparable, SQLObject
+    public class Orc : IComparable, SQLObject, XMLObject
     {
         public uint id { get; set; }
         public float Power { get; set; }
         public string Master { get; set; }
+        public uint Master_id { get; set; }
         public uint sqlID { get; set; }
         public Orc()
         {
@@ -19,7 +21,7 @@ namespace DLLSpecial
         {
             return this.ToString().CompareTo(obj.ToString());
         }
-        
+
         //public string sortString()
         //{
         //    return "SELECT * FROM Orc ORDER BY Power;";
@@ -51,6 +53,24 @@ namespace DLLSpecial
         public string updateFormat()
         {
             return "";
+        }
+        #endregion
+
+        #region XMLObject
+        public void loadXML(XmlNode node)
+        {
+            if (node != null)
+            {
+                try
+                {
+                    this.Power = float.Parse(node.SelectSingleNode("Power").InnerText);
+                    this.Master_id = uint.Parse(node.SelectSingleNode("Master_ID").InnerText);
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine("Tăt normal, ceva lipsește");
+                }
+            }
         }
         #endregion
     }

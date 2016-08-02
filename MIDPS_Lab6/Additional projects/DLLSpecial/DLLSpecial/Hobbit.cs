@@ -1,8 +1,8 @@
 ﻿using System;
-
+using System.Xml;
 namespace DLLSpecial
 {
-    public class Hobbit : IComparable, SQLObject
+    public class Hobbit : IComparable, SQLObject, XMLObject
     {
         public string Name { get; set; }
         public uint id { get; set; }
@@ -22,12 +22,12 @@ namespace DLLSpecial
         {
             return this.ToString().CompareTo(obj.ToString());
         }
-        
+
         //public string sortString()
         //{
         //    return "SELECT * FROM Hobbit ORDER BY Name;";
         //}
-        
+
         #region SQLObject
         public string select()
         {
@@ -53,6 +53,23 @@ namespace DLLSpecial
         public string updateFormat()
         {
             return "use MiddleEarth; UPDATE Hobbit SET Name = '{1}' WHERE id = '{0}'";
+        }
+        #endregion
+        #region XMLObject
+        public void loadXML(XmlNode node)
+        {
+            if (node != null)
+            {
+                try
+                {
+                    this.Name = node.SelectSingleNode("Name").InnerText;
+                    this.Region = node.SelectSingleNode("Region").InnerText;
+                }
+                catch (NullReferenceException e)
+                {
+
+                }
+            }
         }
         #endregion
     }

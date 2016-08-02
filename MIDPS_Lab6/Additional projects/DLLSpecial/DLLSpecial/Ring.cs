@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Xml;
 namespace DLLSpecial
 {
-    public class Ring : IComparable, SQLObject
+    public class Ring : IComparable, SQLObject, XMLObject
     {
         public uint id { get; set; }
         public string Name { get; set; }
@@ -65,6 +65,24 @@ namespace DLLSpecial
         public string updateFormat()
         {
             return "use MiddleEarth; UPDATE Ring SET Name = '{1}' WHERE id = '{0}'";
+        }
+        #endregion
+        #region XMLObject
+        public void loadXML(XmlNode node)
+        {
+            if (node != null)
+            {
+                try
+                {
+                    this.Material = node.SelectSingleNode("Material").InnerText;
+                    this.Name = node.SelectSingleNode("Name").InnerText;
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine("Tăt normal, ceva lipsește");
+                }
+                this.OwnerID = new List<uint>();
+            }
         }
         #endregion
     }

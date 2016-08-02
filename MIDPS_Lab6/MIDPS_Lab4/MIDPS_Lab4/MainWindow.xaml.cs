@@ -189,5 +189,10 @@ namespace MIDPS_Lab5
         {
             myController.OnNotification(Notification.SaveXML, this, null);
         }
+
+        private void loadFromXML(object sender, RoutedEventArgs e)
+        {
+            myController.OnNotification(Notification.LoadXML, this, null);
+        }
     }
 }

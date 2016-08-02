@@ -31,7 +31,7 @@ DBCC CHECKIDENT (Users, RESEED, 0); --(if you delete something and want to resta
 use MiddleEarth;
 
 -------------------------
--- Drop Tables--------
+--- Drop Tables--------
 -------------------------
 DROP TABLE Master2Ring;
 DROP TABLE Ring;
@@ -41,7 +41,7 @@ DROP TABLE Elf;
 DROP TABLE Hobbit;
 
 -------------------------
--- Create Tables--------
+--- Create Tables--------
 -------------------------
 
 CREATE TABLE Hobbit (

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Xml;
 namespace DLLSpecial
 {
-    public class Wizard : IComparable, SQLObject
+    public class Wizard : IComparable, SQLObject, XMLObject
     {
         public string Name { get; set; }
         public uint id { get; set; }
         public string Color { get; set; }
         public List<uint> RingID { get; set; }
         public uint sqlID { get; set; }
+        public uint HobbitFriend { get; set; }
+
         public Wizard()
         {
         }
@@ -58,6 +60,26 @@ namespace DLLSpecial
         public string updateFormat()
         {
             return "use MiddleEarth; UPDATE Wizard SET Name = '{1}' WHERE id = '{0}'";
+        }
+        #endregion
+
+        #region XMLObject
+        public void loadXML(XmlNode node)
+        {
+            if (node != null)
+            {
+                try
+                {
+                    this.Name = node.SelectSingleNode("Name").InnerText;
+                    this.Color = node.SelectSingleNode("Color").InnerText;
+                    this.HobbitFriend = uint.Parse(node.SelectSingleNode("Hobbit_Friend").InnerText);
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine("Tăt normal, ceva lipsește");
+                }
+                this.RingID = new List<uint>();
+            }
         }
         #endregion
 

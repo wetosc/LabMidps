@@ -132,6 +132,11 @@ namespace MIDPS_Lab5
                         Singleton.Instance.saveToXML();
                     }
                     break;
+                case Notification.LoadXML:
+                    {
+                        Singleton.Instance.loadFromXML();
+                    }
+                    break;
             }
         }
     }

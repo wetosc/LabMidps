@@ -41,9 +41,11 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Menu x:Name="menu"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.RowSpan="1" Grid.ColumnSpan="3" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0">
-            <MenuItem Header="XML" >
+            <MenuItem Header="XML" Height="Auto" HorizontalAlignment="Center" >
                 <MenuItem Header="Save XML" Click="saveToXML"></MenuItem>
+                <MenuItem Header="Load XML" Click="loadFromXML"></MenuItem>
             </MenuItem>
+            
             
         </Menu>
 

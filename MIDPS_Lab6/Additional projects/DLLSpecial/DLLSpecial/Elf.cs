@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Text;
+using System.Xml;
 
 namespace DLLSpecial
 {
-    public class Elf : IComparable, SQLObject
+    public class Elf : IComparable, SQLObject, XMLObject
     {
         public string Name { get; set; }
         public uint id { get; set; }
@@ -79,5 +80,27 @@ namespace DLLSpecial
             return "use MiddleEarth; UPDATE Elf SET Name = '{1}' WHERE id = '{0}'";
         }
         #endregion
+
+
+        #region XMLObject
+        public void loadXML(XmlNode node)
+        {
+            if (node != null)
+            {
+                try
+                {
+                    this.Name = node.SelectSingleNode("Name").InnerText;
+                    this.Category = node.SelectSingleNode("Category").InnerText;
+                    this.HobbitFriend = uint.Parse(node.SelectSingleNode("Hobbit_Friend").InnerText);
+                    this.imageData = Encoding.ASCII.GetBytes(node.SelectSingleNode("Image").InnerText);
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine("Tăt normal, ceva lipsește");
+                }
+            }
+        }
+        #endregion
+
     }
 }

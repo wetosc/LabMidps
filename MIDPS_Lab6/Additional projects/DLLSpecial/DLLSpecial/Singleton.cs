@@ -18,6 +18,12 @@ namespace DLLSpecial
         string deleteOneString(int id);
     }
 
+    public interface XMLObject
+    {
+        void loadXML(XmlNode node);
+    }
+
+
     public class Singleton
     {
         private static readonly Singleton instance = new Singleton();
@@ -265,7 +271,7 @@ namespace DLLSpecial
             connect();
 
             string tempFileName = "temp.xml", finalFileName = "final.xml";
-            List<SQLObject> objs = new List<SQLObject> { new Elf(), new Hobbit(), new Wizard(), new Orc() };
+            List<SQLObject> objs = new List<SQLObject> { new Hobbit(), new Wizard(), new Orc(), new Elf(), new Ring() };
             XmlDocument root = new XmlDocument();
             var parent = root.CreateElement("root");
 
@@ -278,13 +284,14 @@ namespace DLLSpecial
                 dtRecord.WriteXml(tempFileName);
 
                 XmlDocument docTemp = new XmlDocument(); docTemp.Load(tempFileName);
-                XmlNode el = docTemp.SelectSingleNode("/NewDataSet/Table");
+                XmlNode el = docTemp.SelectSingleNode("/NewDataSet");
                 XmlElement elem = docTemp.CreateElement(obj.GetType().ToString());
                 if (el != null) { elem.AppendChild(el); }
                 XmlNode nod = root.ImportNode(elem, true);
                 parent.AppendChild(nod);
             }
-            using (SqlCommand sqlCmd = new SqlCommand("use MiddleEarth; SELECT * FROM Master2Ring", connection)) {
+            using (SqlCommand sqlCmd = new SqlCommand("use MiddleEarth; SELECT * FROM Master2Ring", connection))
+            {
 
                 SqlDataAdapter sqlDataAdap = new SqlDataAdapter(sqlCmd);
                 DataSet dtRecord = new DataSet();
@@ -292,7 +299,7 @@ namespace DLLSpecial
                 dtRecord.WriteXml(tempFileName);
 
                 XmlDocument docTemp = new XmlDocument(); docTemp.Load(tempFileName);
-                XmlNode el = docTemp.SelectSingleNode("/NewDataSet/Table");
+                XmlNode el = docTemp.SelectSingleNode("/NewDataSet");
                 XmlElement elem = docTemp.CreateElement("DLLSpecial.Master2Ring");
                 if (el != null) { elem.AppendChild(el); }
                 XmlNode nod = root.ImportNode(elem, true);
@@ -300,6 +307,37 @@ namespace DLLSpecial
             }
             root.AppendChild(parent);
             root.Save(finalFileName);
+        }
+
+        public void delete_create()
+        {
+            connect();
+            string sqlString = "use MiddleEarth;     DROP TABLE Master2Ring;   DROP TABLE Ring;   DROP TABLE Orc;   DROP TABLE Wizard;   DROP TABLE Elf;   DROP TABLE Hobbit;     CREATE TABLE Hobbit (     id INTEGER IDENTITY NOT NULL,     Name VARCHAR(256) NULL DEFAULT NULL,     Region VARCHAR(256) NULL DEFAULT NULL,     PRIMARY KEY (id)   );      CREATE TABLE Elf (     id INTEGER IDENTITY NOT NULL,     Name VARCHAR(256) NULL DEFAULT NULL,     Category VARCHAR(256) NULL DEFAULT NULL,     Hobbit_Friend INTEGER NULL DEFAULT NULL,     Image image NULL,     PRIMARY KEY (id),     CONSTRAINT  Hobbit_Friend_FK2 FOREIGN KEY (Hobbit_Friend) REFERENCES Hobbit (id)   );      CREATE TABLE Ring (     id INTEGER IDENTITY NOT NULL,     Material VARCHAR(256) NULL DEFAULT NULL,     Name VARCHAR(256) NULL DEFAULT NULL,     PRIMARY KEY (id)   );      CREATE TABLE Wizard (     id INTEGER IDENTITY NOT NULL,     Name VARCHAR(256) NULL DEFAULT NULL,     Color VARCHAR(256) NULL DEFAULT NULL,     Hobbit_Friend INTEGER NULL DEFAULT NULL,     PRIMARY KEY (id),     CONSTRAINT Hobbit_Friend_FK FOREIGN KEY (Hobbit_Friend) REFERENCES Hobbit (id)   );      CREATE TABLE Master2Ring (     Ring_ID INTEGER NULL DEFAULT NULL,     Master_ID INTEGER NULL DEFAULT NULL,     CONSTRAINT  Ring_ID_FK FOREIGN KEY (Ring_ID) REFERENCES Ring (id),     CONSTRAINT  Master_ID_FK FOREIGN KEY (Master_ID) REFERENCES Wizard (id)   );         CREATE TABLE Orc (     id INTEGER IDENTITY NOT NULL,     Power FLOAT NULL DEFAULT NULL,     Master_ID INTEGER NULL DEFAULT NULL,     PRIMARY KEY (id),     CONSTRAINT  Master_ID_FK2 FOREIGN KEY (Master_ID) REFERENCES Wizard (id)   );";
+            SqlCommand cmd = new SqlCommand(sqlString, connection);
+            cmd.ExecuteNonQuery();
+        }
+
+
+        public void loadFromXML()
+        {
+            delete_create();
+            List<Type> objs = new List<Type> { typeof(Hobbit), typeof(Wizard), typeof(Orc), typeof(Elf), typeof(Ring) };
+            string finalFileName = "final.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(finalFileName);
+            int i = 0;
+            foreach (XmlNode elems in doc.SelectNodes("/root/*/NewDataSet"))
+            {
+                foreach (XmlElement node in elems.SelectNodes("Table"))
+                {
+                    Console.WriteLine(node.InnerXml);
+                    XMLObject tmp = (XMLObject)Activator.CreateInstance(objs[i]);
+                    tmp.loadXML(node);
+                    Insert((SQLObject)tmp, objs[i].ToString().Split('.')[1]);
+                }
+                i++;
+                if (i >= objs.Count) { break; }
+            }
         }
     }
 }
