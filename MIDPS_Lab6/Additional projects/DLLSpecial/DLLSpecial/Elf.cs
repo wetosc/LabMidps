@@ -16,6 +16,7 @@ namespace DLLSpecial
         public Elf()
         {
         }
+
         public override string ToString()
         {
             return String.Format("{0} nr. {1} with Name = {2}", "Elf", id, Name);

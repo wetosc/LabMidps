@@ -30,15 +30,15 @@ namespace DLLSpecial
 
         // Explicit static constructor to tell C# compiler
         // not to mark type as beforefieldinit
-        static Singleton()
-        {
-        }
+        static Singleton() { }
+
+        private string connectionString = "Data Source=DESKTOP-FNFDKC7\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
+        private string connectionStringUsers = "Data Source=DESKTOP-FNFDKC7\\SQLEXPRESS;Initial Catalog=Users;Integrated Security=True";
+
+
 
         private Singleton()
         {
-            string connectionString = "Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=MiddleEarth;Integrated Security=True";
-            //string connectionString = "Data Source=TI50115;Initial Catalog=MiddleEarth;Integrated Security=True";
-
             connection = new SqlConnection(connectionString);
         }
 
@@ -235,7 +235,7 @@ namespace DLLSpecial
 
         public DataSet rightsForUser(string userName, string password)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=Users;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection(connectionStringUsers))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -253,7 +253,7 @@ namespace DLLSpecial
 
         public DataSet getUserList()
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-0FJJT76\\SQLEXPRESS;Initial Catalog=Users;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection(connectionStringUsers))
             {
 
                 SqlCommand sqlCmd = new SqlCommand();
@@ -318,9 +318,12 @@ namespace DLLSpecial
         }
 
 
-        public void loadFromXML()
+        public void loadFromXML(bool shouldDelete)
         {
-            delete_create();
+            if (shouldDelete)
+            {
+                delete_create();
+            }
             List<Type> objs = new List<Type> { typeof(Hobbit), typeof(Wizard), typeof(Orc), typeof(Elf), typeof(Ring) };
             string finalFileName = "final.xml";
             XmlDocument doc = new XmlDocument();

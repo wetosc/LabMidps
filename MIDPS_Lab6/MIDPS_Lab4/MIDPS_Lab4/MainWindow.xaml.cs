@@ -23,7 +23,7 @@ namespace MIDPS_Lab5
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, AlertViewDelegate
     {
         public Controller myController { get; set; }
 
@@ -159,7 +159,8 @@ namespace MIDPS_Lab5
                     if (dialog.ShowDialog() == true)
                     {
                         myController.OnNotification(Notification.UpdateRowOk, this, id, dialog.textBox.Text);
-                        if (dialog.hasImage) {
+                        if (dialog.hasImage)
+                        {
                             myController.OnNotification(Notification.UpdateImage, this, id, dialog.imageUpdate.Content);
                         }
                     }
@@ -192,7 +193,26 @@ namespace MIDPS_Lab5
 
         private void loadFromXML(object sender, RoutedEventArgs e)
         {
-            myController.OnNotification(Notification.LoadXML, this, null);
+            AlertView alert = new AlertView();
+
+            alert.text.Content = "Do you want to replace or add new items?";
+            alert.button1.Content = "Replace";
+            alert.button2.Content = "Add new items";
+            alert.delegat = this;
+            alert.ShowDialog();
+        }
+        public void buttonClicked(AlertView view, bool isFirstButton)
+        {
+            myController.OnNotification(Notification.LoadXML, this, isFirstButton);
+            Task.Delay(1000).ContinueWith(t => reloadTable());
+        }
+
+        void reloadTable()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                myController.OnNotification(Notification.PageChange, this, myController.model.currentPage);
+            });
         }
     }
 }

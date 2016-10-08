@@ -134,7 +134,7 @@ namespace MIDPS_Lab5
                     break;
                 case Notification.LoadXML:
                     {
-                        Singleton.Instance.loadFromXML();
+                        Singleton.Instance.loadFromXML((bool) data.GetValue(0));
                     }
                     break;
             }
