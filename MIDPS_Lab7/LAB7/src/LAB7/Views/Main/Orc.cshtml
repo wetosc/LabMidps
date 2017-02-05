@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Orc";
+    Layout = "_Main";
+    Tuple<string, bool>[] tableHeader = { Tuple.Create("ID", false), Tuple.Create("Power", false), Tuple.Create("MasterID", false)};
+}
+@model List<LAB7.Models.Orc>
+
+<div>
+
+    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+            <tr>
+                @foreach (var title in tableHeader)
+                {
+                @if (@title.Item2)
+                {
+                <th class="mdl-data-table__cell--non-numeric">@title.Item1</th>
+                }
+                else
+                {
+                <th>@title.Item1</th>
+                }
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (LAB7.Models.Orc item in @Model)
+            {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Power</td>
+                <td>@item.MasterId</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

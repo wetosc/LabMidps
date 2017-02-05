@@ -1,0 +1,29 @@
+﻿
+#left-side {
+    
+}
+
+#right-side {
+    
+}
+
+#main-parent {
+    width: 100%;
+}
+
+#main-parent td {
+    padding: 10px;
+}
+
+#main-parent td:first-child {
+    width: 20%;
+}
+
+#left-side ul {
+    list-style-type: none;
+}
+
+.menu-item button {
+    margin-top: 10px;
+    width: 100%;
+}

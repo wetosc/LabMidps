@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace LAB7.Controllers
 {
     public class LoginController : Controller
@@ -13,7 +11,21 @@ namespace LAB7.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            return View("Index", "");
+        }
+
+        public IActionResult Login(string userName, string password)
+        {
+            using (var context = new Models.UsersContext())
+            {
+                var user = context.Users.FirstOrDefault(b => b.UserName == userName && b.Password == password);
+                if (user != null)
+                {
+                    return RedirectToAction("Elf", "Main");
+                }
+                return View("Index","Your password or username is wrong. Check them again.");
+            }
         }
     }
+
 }

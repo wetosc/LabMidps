@@ -1,0 +1,12 @@
+﻿#left-side {
+    width: 20%;
+}
+
+#left-side ul {
+    list-style-type: none;
+}
+
+.menu-item button {
+    margin-top: 10px;
+    width: 100%;
+}

@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Hobbit";
+    Layout = "_Main";
+    Tuple<string, bool>[] tableHeader = { Tuple.Create("ID", false), Tuple.Create("Name", true), Tuple.Create("Region", true)};
+}
+@model List<LAB7.Models.Hobbit>
+
+<div>
+
+    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+            <tr>
+                @foreach (var title in tableHeader)
+                {
+                @if (@title.Item2)
+                {
+                <th class="mdl-data-table__cell--non-numeric">@title.Item1</th>
+                }
+                else
+                {
+                <th>@title.Item1</th>
+                }
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (LAB7.Models.Hobbit item in @Model)
+            {
+            <tr>
+                <td>@item.Id</td>
+                <td class="mdl-data-table__cell--non-numeric">@item.Name</td>
+                <td class="mdl-data-table__cell--non-numeric">@item.Region</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

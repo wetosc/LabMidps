@@ -1,7 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
+@model String
+<h2>Log In</h2>
 
-<h2>Index</h2>
-
-<p>Hello from our View Template!</p>
+<form asp-action="Login" asp-controller="Login">
+    <div>
+        <label>User Name</label>
+        <input name="userName" type="text"/>
+        <br />
+        <label>Password</label>
+        <input name="password" type="password" />
+        <br />
+        <input type="submit" value="Log In">
+    </div>
+</form>
+<h3 class="bg-danger">@Model</h3>
